@@ -1,0 +1,54 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('auth.login');
+});
+
+//Home
+Route::get('/admin/home', function () {
+    return view('pages.user.home');
+});
+
+//Finish Goods
+
+//Transaction
+Route::get('/admin/finish-goods-manual', function () {
+    return view('pages.user.transaction.finishgoods.transactionIn');
+});
+
+Route::get('/admin/finish-goods-barcode', function () {
+    return view('pages.user.transaction.finishgoods.transactionInBarcode');
+});
+
+Route::get('/admin/finish-goods-barcode-transaction', function () {
+    return view('pages.user.transaction.finishgoods.transactionInBarcode2');
+});
+
+
+//Report
+Route::get('/admin/finish-goods-reportIn', function () {
+    return view('pages.user.report.finishgoods.finishGoodsReportIn');
+});
+
+Route::get('/admin/finish-goods-reportOut', function () {
+    return view('pages.user.report.finishgoods.finishGoodsReportOut');
+});
+
+route::get('/admin/finish-goods-reportSummary', function () {
+    return view('pages.user.report.finishgoods.finishGoodsReportSummary');
+});
+
+//Admin
+Route::get('/admin/user-management', function () {
+    return view('pages.admin.userManagement');
+});
+
+Route::get('/admin/token-management', function () {
+    return view('pages.admin.tokenManagement');
+});
+
+Route::get('/admin/rack-management', function () {
+    return view('pages.admin.rackManagement');
+});
