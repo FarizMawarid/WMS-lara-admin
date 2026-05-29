@@ -317,7 +317,7 @@ return [
             'topnav_right' => true,
         ],
         [
-            'text' => 'Alexander Pierce',
+            'text' => 'Admin',
             'topnav_right' => true,
             'icon' => 'fas fa-user-circle',
             'submenu' => [
