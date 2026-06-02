@@ -150,62 +150,15 @@
 </div>
 @stop
 
-
 @section('css')
-<style>
-.select2-container {
-    width: 100% !important;
-}
-.select2-container .select2-selection--single {
-    height: 38px !important;
-    padding-top: 4px;
-}
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 28px !important;
-}
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 38px !important;
-}
-
-body {
-    overflow-x: hidden;
-    overflow-y: hidden;
-}
-</style>
+<link rel="stylesheet" href="{{ asset('css/select2Addon.css') }}">
 @stop
 
 @section('js')
-<script>
-$(document).ready(function () {
-
-    $('.select2').select2({
-        width: '100%'
-    });
-
-    $('#userTable').DataTable({
-        responsive: true,
-        autoWidth: false
-    });
-
-    // FILTER CHANGE
-    $('#filterType').on('change', function () {
-
-        let value = $(this).val();
-
-        if (value === 'date') {
-
-            $('.filter-po').addClass('d-none');
-            $('.filter-date').removeClass('d-none');
-
-        } else {
-
-            $('.filter-po').removeClass('d-none');
-            $('.filter-date').addClass('d-none');
-
-        }
-
-    });
-
-});
+<script 
+    src="{{ asset('js/plugins.js') }}">
+</script>
+<script 
+    src="{{ asset('js/modalAlert.js') }}">
 </script>
 @stop
