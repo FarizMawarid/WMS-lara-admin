@@ -58,11 +58,11 @@
                     </div>
                     <div class="col-md-2">
                         <label class="form-label">
-                            Username :
+                            NIK :
                         </label>
                         <input type="text" class="form-control" placeholder="Username" required>
                         <div class="invalid-feedback">
-                            Please enter a username.
+                            Please enter a NIK.
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -124,7 +124,7 @@
                         <td>admin_klego</td>
                         <td>Finish Goods 1</td>
                         <td>
-                            <button class="btn btn-primary btn-sm">Edit</button>
+                            <button class="btn btn-primary btn-sm" type="button" id="btn-edit-user">Edit</button>
                             <button class="btn btn-danger btn-sm" type="button" id="btn-delete-user">Delete</button>
                         </td>
                     </tr>

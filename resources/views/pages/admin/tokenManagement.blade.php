@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-info" type="submit">
+                <button class="btn btn-info" type="button" id="btn-add-token">
                     Generate Token
                 </button>
             </div>
@@ -98,7 +98,7 @@
                         <td>192.168.1.100</td>
                         <td>http://warehouse-management-system-esgi-klego</td>
                         <td>
-                            <button class="btn btn-danger btn-sm">Delete</button>
+                            <button class="btn btn-danger btn-sm" type="button" id="btn-delete-token">Delete</button>
                         </td>
                     </tr>
                 </tbody>
