@@ -2,6 +2,8 @@
 
 @section('title', 'Warehouse Management System')
 
+@section('plugins.Sweetalert2', true)
+
 @section('content_header')
     <h1>User Management | Admin</h1>
 @stop
@@ -90,7 +92,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-info" type="submit">
+                <button class="btn btn-info" type="button" id="btn-add-user">
                     Add User
                 </button>
             </div>
@@ -123,7 +125,7 @@
                         <td>Finish Goods 1</td>
                         <td>
                             <button class="btn btn-primary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
+                            <button class="btn btn-danger btn-sm" type="button" id="btn-delete-user">Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -169,7 +171,50 @@ $(document).ready(function () {
         autoWidth: false
     });
 
+    // Modal adding user begins here
+    $('#btn-add-user').click(function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Are you sure you want to add this user?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Confirm"
+            }).then((result) => {
+            if (result.isConfirmed) Swal.fire({
+                title: "Added!",
+                text: "The user has been added.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+            });
+            });
+    // Modal adding user ends here
+    });
+
+    // Modal delete user begins here
+    $('#btn-delete-user').click(function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Are you sure you want to delete this user?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Confirm"
+            }).then((result) => {
+            if (result.isConfirmed) Swal.fire({
+                title: "Deleted!",
+                text: "The user has been deleted.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+            });
+            });
+    // Modal delete user ends here
+    });
+
 });
 </script>
-
 @stop
