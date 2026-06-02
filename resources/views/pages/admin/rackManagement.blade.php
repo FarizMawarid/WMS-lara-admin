@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-info" type="submit">
+                <button class="btn btn-info" type="button" id="btn-add-rack">
                     Generate Rack
                 </button>
             </div>
@@ -96,7 +96,8 @@
                         <td>Finish Goods 1</td>
                         <td>RACK-001</td>
                         <td>
-                            <button class="btn btn-danger btn-sm">Delete</button>
+                            <button class="btn btn-primary btn-sm" id="btn-edit-rack">Edit</button>
+                            <button class="btn btn-danger btn-sm" id="btn-delete-rack">Delete</button>
                         </td>
                     </tr>
                 </tbody>

@@ -60,7 +60,7 @@
                         <label class="form-label">
                             NIK :
                         </label>
-                        <input type="text" class="form-control" placeholder="Username" required>
+                        <input type="number" class="form-control" placeholder="Username" required>
                         <div class="invalid-feedback">
                             Please enter a NIK.
                         </div>
