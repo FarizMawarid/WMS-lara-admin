@@ -112,7 +112,7 @@
                     <tr>
                         <th>Factory</th>
                         <th>Role</th>
-                        <th>Username</th>
+                        <th>NIK</th>
                         <th>Department</th>
                         <th>Actions</th>
                     </tr>
