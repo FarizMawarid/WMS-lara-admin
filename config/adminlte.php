@@ -348,6 +348,7 @@ return [
             'text' => 'Finish Goods',
             'icon' => 'fas fa-truck',
             'submenu' => [
+                'header' => 'Finish Goods Mangement',
                 [
                     'text' => 'Transaction',
                     'icon' => 'fas fa-exchange-alt',
@@ -408,6 +409,7 @@ return [
             'url' => '#',
             'icon' => 'fas fa-user-shield',
             'submenu' => [
+                'header' => 'Admin Management',
                 [
                     'text' => 'User Management',
                     'icon' => 'fas fa-users-cog',
