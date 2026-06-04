@@ -8,7 +8,7 @@ Route::get('/', function () {
 
 //Home
 Route::get('/admin/home', function () {
-    return view('pages.user.home');
+    return view('home');
 });
 
 //Finish Goods
@@ -38,6 +38,11 @@ Route::get('/admin/finish-goods-reportOut', function () {
 
 route::get('/admin/finish-goods-reportSummary', function () {
     return view('pages.user.report.finishgoods.finishGoodsReportSummary');
+});
+
+//Dashboard
+route::get('/admin/finish-goods-dashboard', function () {
+    return view('pages.user.dashboard.dashboardFinishGoods');
 });
 
 //Admin

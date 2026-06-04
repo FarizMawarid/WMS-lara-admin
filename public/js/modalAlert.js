@@ -9,7 +9,7 @@ $(document).ready(function () {
             text: "Are you sure you want to add this user?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#17A2B8",
+            confirmButtonColor: "#24c4dd",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
             }).then((result) => {
@@ -17,7 +17,7 @@ $(document).ready(function () {
                 title: "Added!",
                 text: "The user has been added.",
                 icon: "success",
-                confirmButtonColor: "#17A2B8",
+                confirmButtonColor: "#24c4dd",
             });
             });
     });
@@ -37,7 +37,7 @@ $(document).ready(function () {
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: 'Save',
-            confirmButtonColor: '#17A2B8',
+            confirmButtonColor: '#24c4dd',
             cancelButtonColor: '#d33',
             preConfirm: () => {
                 return {
@@ -53,7 +53,7 @@ $(document).ready(function () {
                 title: 'Updated!',
                 text: `User ${formValues.NIK} has been updated.`,
                 icon: 'success',
-                confirmButtonColor: '#17A2B8'
+                confirmButtonColor: '#24c4dd'
             });
         }
     });
@@ -67,7 +67,7 @@ $(document).ready(function () {
             text: "Are you sure you want to delete this user?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#17A2B8",
+            confirmButtonColor: "#24c4dd",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
             }).then((result) => {
@@ -75,7 +75,7 @@ $(document).ready(function () {
                 title: "Deleted!",
                 text: "The user has been deleted.",
                 icon: "success",
-                confirmButtonColor: "#17A2B8",
+                confirmButtonColor: "#24c4dd",
             });
             });
     });
@@ -93,7 +93,7 @@ $(document).ready(function () {
             text: "Are you sure you want to generate this token?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#17A2B8",
+            confirmButtonColor: "#24c4dd",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
         }).then((result) => {
@@ -101,7 +101,7 @@ $(document).ready(function () {
                 title: "Generated!",
                 text: "The token has been generated.",
                 icon: "success",
-                confirmButtonColor: "#17A2B8",
+                confirmButtonColor: "#24c4dd",
             });
         });
     });
@@ -115,7 +115,7 @@ $(document).ready(function () {
             text: "Are you sure you want to delete this token?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#17A2B8",
+            confirmButtonColor: "#24c4dd",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
             }).then((result) => {
@@ -123,7 +123,7 @@ $(document).ready(function () {
                 title: "Deleted!",
                 text: "The token has been deleted.",
                 icon: "success",
-                confirmButtonColor: "#17A2B8",
+                confirmButtonColor: "#24c4dd",
             });
             });
     });
@@ -141,7 +141,7 @@ $(document).ready(function () {
             text: "Are you sure you want to generate this rack?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#17A2B8",
+            confirmButtonColor: "#24c4dd",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
             }).then((result) => {
@@ -149,7 +149,7 @@ $(document).ready(function () {
                 title: "Generated!",
                 text: "The rack has been generated.",
                 icon: "success",
-                confirmButtonColor: "#17A2B8",
+                confirmButtonColor: "#24c4dd",
             });
             });
     });
@@ -163,7 +163,7 @@ $(document).ready(function () {
             text: "Are you sure you want to delete this rack?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#17A2B8",
+            confirmButtonColor: "#24c4dd",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
             }).then((result) => {
@@ -171,7 +171,7 @@ $(document).ready(function () {
                 title: "Deleted!",
                 text: "The rack has been deleted.",
                 icon: "success",
-                confirmButtonColor: "#17A2B8",
+                confirmButtonColor: "#24c4dd",
             });
             });
     });
@@ -190,7 +190,7 @@ $(document).ready(function () {
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: 'Save',
-            confirmButtonColor: '#17A2B8',
+            confirmButtonColor: '#24c4dd',
             cancelButtonColor: '#d33',
             preConfirm: () => {
                 return {
@@ -205,7 +205,7 @@ $(document).ready(function () {
                 title: 'Updated!',
                 text: `Rack ${formValues.rackCode} has been updated.`,
                 icon: 'success',
-                confirmButtonColor: '#17A2B8'
+                confirmButtonColor: '#24c4dd'
             });
         }
     });

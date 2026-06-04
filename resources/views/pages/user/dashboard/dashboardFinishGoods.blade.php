@@ -3,7 +3,7 @@
 @section('title', 'WMS')
 
 @section('content_header')
-    <h1>Home | Warehouse Management System</h1>
+    <h1>Finish Goods Dashboard</h1>
 @stop
 
 @section('content')
@@ -80,14 +80,5 @@
         </div>
     </div>
 </main>
-@stop
+@endsection
 
-@section('css')
-    {{-- Extra CSS here --}}
-@stop
-
-@section('js')
-    <script>
-        console.log("AdminLTE dashboard loaded.");
-    </script>
-@stop
