@@ -2,8 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('auth.login');
+Route::get('/login', function () {
+    return view('vendor.adminlte.auth.login');
+});
+
+Route::get('/register', function () {
+    return view('vendor.adminlte.auth.register');
 });
 
 //Home
