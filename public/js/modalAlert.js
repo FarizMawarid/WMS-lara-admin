@@ -106,7 +106,7 @@ $(document).ready(function () {
         });
     });
     // Modal adding token ends here
-    
+
     // Modal delete token begins here
     $('#btn-delete-token').click(function (e) {
         e.preventDefault();
@@ -135,7 +135,7 @@ $(document).ready(function () {
 $(document).ready(function () {
 
     $('#btn-add-rack').click(function (e) {
-        
+
         e.preventDefault();
 
         let form = $(this).closest('form');
@@ -178,7 +178,7 @@ $(document).ready(function () {
                 form.submit();
             }
             });
-        
+
     });
     // Modal delete rack ends here
 
@@ -216,3 +216,39 @@ $(document).ready(function () {
     });
     // Modal editing rack ends here
 });
+
+// ------------- Modal Alert Add Produc Type -----------------
+    $('#btn-add-product-type').click(async function (e) {
+        e.preventDefault();
+        const { value: formValues } = await Swal.fire({
+            title: 'Add Product Type',
+            html: `
+                <input id="swal-PO" class="swal2-input" placeholder="PO">
+                <input id="swal-KP" class="swal2-input" placeholder="KP">
+                <input id="swal-Season" class="swal2-input" placeholder="Season">
+                <input id="swal-Style" class="swal2-input" placeholder="Style">
+            `,
+            focusConfirm: false,
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            confirmButtonColor: '#24c4dd',
+            cancelButtonColor: '#d33',
+            preConfirm: () => {
+                return {
+                    PO: document.getElementById('swal-PO').value,
+                    KP: document.getElementById('swal-KP').value,
+                    Season: document.getElementById('swal-Season').value,
+                    Style: document.getElementById('swal-Style').value
+                };
+            }
+        });
+        if (formValues) {
+            Swal.fire({
+                title: 'Updated!',
+                text: `Product Type has been updated.`,
+                icon: 'success',
+                confirmButtonColor: '#24c4dd'
+            });
+        }
+    });
+    // Modal editing user ends here

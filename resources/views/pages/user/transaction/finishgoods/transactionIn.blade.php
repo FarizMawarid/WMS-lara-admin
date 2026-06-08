@@ -76,7 +76,7 @@
                             Rack :
                         </label>
                         <select class="form-select select2">
-                            <option>
+                            <option disabled>
                                 Select Rack
                             </option>
                             <option>Rack A</option>

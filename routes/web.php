@@ -49,6 +49,11 @@ route::get('/admin/finish-goods-reportSummary', function () {
     return view('pages.user.report.finishgoods.finishGoodsReportSummary');
 });
 
+//Master Data
+Route::get('/admin/product-type', function () {
+    return view('pages.user.master-data.product-type');
+});
+
 //Dashboard
 route::get('/admin/finish-goods-dashboard', function () {
     return view('pages.user.dashboard.dashboardFinishGoods');
