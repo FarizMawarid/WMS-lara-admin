@@ -13,9 +13,11 @@
             <div class="card-title">
                 Data Master Product Type
             </div>
-            <button class="btn btn-info btn-sm float-right" type="button" id="btn-add-product-type">
-                Add Product Type
-            </button>
+            <div class="card-tools">
+                <button class="btn btn-info" type="button" id="btn-add-product-type">
+                    Add Product Type
+                </button>
+            </div>
         </div>
         <div class="card-body">
             <table id="userTable" class="table table-bordered table-striped">
