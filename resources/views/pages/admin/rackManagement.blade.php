@@ -109,7 +109,14 @@
                             @csrf
                             @method('DELETE')
 
-                            <button 
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-sm"
+                                id="btn-edit-rack">
+                                Edit
+                            </button>
+
+                            <button
                                 type="submit"
                                 class="btn btn-danger btn-sm btn-delete-rack">
                                 Delete
@@ -132,10 +139,10 @@
 @stop
 
 @section('js')
-<script 
+<script
     src="{{ asset('js/plugins.js') }}">
 </script>
-<script 
+<script
     src="{{ asset('js/modalAlert.js') }}">
 </script>
 
