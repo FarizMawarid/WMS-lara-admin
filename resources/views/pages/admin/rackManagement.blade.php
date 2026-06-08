@@ -21,14 +21,16 @@
                 </button>
             </div>
         </div>
-        <form class="needs-validation" novalidate>
+        <form action="/admin/rack-management"
+            method="POST">
+            @csrf
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2">
                         <label class="form-label">
                             Factory :
                         </label>
-                        <select class="form-control select2" required>
+                        <select name="factory" class="form-control">
                             <option selected disabled>
                                 Select Factory
                             </option>
@@ -43,7 +45,7 @@
                         <label class="form-label">
                             Department :
                         </label>
-                        <select class="form-control select2" required>
+                        <select name="department" class="form-control">
                             <option selected disabled>
                                 Select Department
                             </option>
@@ -58,7 +60,10 @@
                         <label class="form-label">
                             Rack Code :
                         </label>
-                        <input type="text" class="form-control" placeholder="Rack Code" required>
+                        <input
+                            type="text"
+                            name="rack_code"
+                            class="form-control">
                         <div class="invalid-feedback">
                             Please enter an Rack Code.
                         </div>
@@ -66,7 +71,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-info" type="button" id="btn-add-rack">
+                <button class="btn btn-info" type="submit" id="btn-add-rack">
                     Generate Rack
                 </button>
             </div>
@@ -91,15 +96,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>ESGI Klego</td>
-                        <td>Finish Goods 1</td>
-                        <td>RACK-001</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm" id="btn-edit-rack">Edit</button>
-                            <button class="btn btn-danger btn-sm" id="btn-delete-rack">Delete</button>
-                        </td>
-                    </tr>
+                @foreach($racks as $rack)
+                <tr>
+                    <td>{{ $rack->factory }}</td>
+                    <td>{{ $rack->department }}</td>
+                    <td>{{ $rack->rack_code }}</td>
+                    <td>
+
+                        <form action="/admin/rack-management/{{ $rack->id }}"
+                            method="POST">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button 
+                                type="submit"
+                                class="btn btn-danger btn-sm btn-delete-rack">
+                                Delete
+                            </button>
+
+                        </form>
+
+                    </td>
+                </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
@@ -118,4 +138,26 @@
 <script 
     src="{{ asset('js/modalAlert.js') }}">
 </script>
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'success',
+        text: '{{ session('success')}}',
+        confirmButtonColor: '#24c4dd'
+    });
+</script>
+@endif
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: '{{ session('success') }}',
+        confirmButtonColor: '#24c4dd'
+});
+</script>
+@endif
 @stop

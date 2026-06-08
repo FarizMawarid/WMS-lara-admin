@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\RackController;
+
+
+Auth::routes();
 
 Route::get('/login', function () {
     return view('vendor.adminlte.auth.login');
@@ -58,6 +63,14 @@ Route::get('/admin/token-management', function () {
     return view('pages.admin.tokenManagement');
 });
 
-Route::get('/admin/rack-management', function () {
-    return view('pages.admin.rackManagement');
-});
+Route::get('/admin/rack-management',
+    [RackController::class,'index']
+);
+
+Route::post('/admin/rack-management',
+    [RackController::class,'store']
+);
+
+Route::delete('/admin/rack-management/{id}',
+    [RackController::class,'destroy']
+);

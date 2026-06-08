@@ -133,9 +133,13 @@ $(document).ready(function () {
 
 // ------------- Modal Alert Rack Management begins here -----------------
 $(document).ready(function () {
-    // Modal adding rack begins here
+
     $('#btn-add-rack').click(function (e) {
+        
         e.preventDefault();
+
+        let form = $(this).closest('form');
+
         Swal.fire({
             title: "Are you sure?",
             text: "Are you sure you want to generate this rack?",
@@ -144,20 +148,21 @@ $(document).ready(function () {
             confirmButtonColor: "#24c4dd",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
-            }).then((result) => {
-            if (result.isConfirmed) Swal.fire({
-                title: "Generated!",
-                text: "The rack has been generated.",
-                icon: "success",
-                confirmButtonColor: "#24c4dd",
-            });
-            });
+
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                form.submit();
+            }
     });
+});
     // Modal adding rack ends here
 
     // Modal delete rack begins here
-    $('#btn-delete-rack').click(function (e) {
+    $('.btn-delete-rack').click(function (e) {
         e.preventDefault();
+
+        let form = $(this).closest('form');
         Swal.fire({
             title: "Are you sure?",
             text: "Are you sure you want to delete this rack?",
@@ -166,14 +171,14 @@ $(document).ready(function () {
             confirmButtonColor: "#24c4dd",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
-            }).then((result) => {
-            if (result.isConfirmed) Swal.fire({
-                title: "Deleted!",
-                text: "The rack has been deleted.",
-                icon: "success",
-                confirmButtonColor: "#24c4dd",
+
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                form.submit();
+            }
             });
-            });
+        
     });
     // Modal delete rack ends here
 
