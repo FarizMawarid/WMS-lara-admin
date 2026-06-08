@@ -84,9 +84,9 @@ return [
     */
 
     'auth_logo' => [
-        'enabled' => false,
+        'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/WMS-logo.png',
+            'path' => 'vendor/adminlte/dist/img/WMS-logo1.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -317,7 +317,9 @@ return [
             'topnav_right' => true,
         ],
         [
-            'type' => 'navbar-logout',
+            'text' => 'Logout',
+            'url' => 'logout',
+            'icon' => 'fas fa-sign-out-alt',
             'topnav_right' => true,
         ],
 

@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Warehouse Management System',
+    'title' => 'AdminLTE 3',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>WMS | </b>ESGI',
+    'logo' => '<b>WMS</b> ESGI',
     'logo_img' => 'vendor/adminlte/dist/img/WMS-logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -84,9 +84,9 @@ return [
     */
 
     'auth_logo' => [
-        'enabled' => false,
+        'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/WMS-logo1.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -114,10 +114,10 @@ return [
         'mode' => 'fullscreen',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/WMS-logo.png',
-            'alt' => 'WMS-logo Preloader Image',
+            'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
-            'width' => 120,
-            'height' => 120,
+            'width' => 200,
+            'height' => 200,
         ],
     ],
 
@@ -196,9 +196,9 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-dark-secondary elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-dark navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -215,7 +215,7 @@ return [
     */
 
     'sidebar_mini' => 'lg',
-    'sidebar_collapse' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -259,7 +259,7 @@ return [
     'use_route_url' => false,
     'dashboard_url' => 'home',
     'logout_url' => 'logout',
-    'login_url' => 'login',
+    'login_url' => '/login',
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
@@ -317,16 +317,10 @@ return [
             'topnav_right' => true,
         ],
         [
-            'text' => 'Admin',
+            'text' => 'Logout',
+            'url' => 'logout',
+            'icon' => 'fas fa-sign-out-alt',
             'topnav_right' => true,
-            'icon' => 'fas fa-user-circle',
-            'submenu' => [
-                [
-                    'text' => 'Logout',
-                    'url'  => 'logout',
-                    'icon' => 'fas fa-sign-out-alt',
-                ],
-            ],
         ],
 
         // Sidebar items:
@@ -335,102 +329,112 @@ return [
             'text' => 'search',
         ],
         [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
             'text' => 'Home',
             'url' => 'admin/home',
             'icon' => 'fas fa-home',
         ],
         [
-            'header' => 'Finish Goods',
+            'header' => 'FINISH GOODS',
+            'classes' => 'text-yellow text-bold',
         ],
         [
-            'text' => 'Finish Goods',
-            'icon' => 'fas fa-boxes',
+            'text' => 'Transaction',
+            'classes' => 'text-yellow',
+            'icon' => 'fas fa-exchange-alt',
+            'icon_color' => 'warning',
             'submenu' => [
                 [
-                    'text' => 'Transaction',
-                    'icon' => 'fas fa-exchange-alt',
-                    'submenu' => [
-                        [
-                            'text' => 'Transaction In (Manual)',
-                            'icon' => 'fas fa-hand-paper',
-                            'url' => 'admin/finish-goods-manual',
-                        ],
-                        [
-                            'text' => 'Transaction In (Barcode)',
-                            'icon' => 'fas fa-barcode',
-                            'url' => 'admin/finish-goods-barcode',
-                        ],
-                    ],
+                    'text' => 'Transaction In (Manual)',
+                    'url' => 'admin/finish-goods-manual',
+                    'icon_color' => 'warning',
+                    'shift' => 'ml-2',
                 ],
                 [
-                    'text' => 'Report',
-                    'icon' => 'fas fa-file-alt',
-                    'submenu' => [
-                        [
-                            'text' => 'Report Transaction In',
-                            'icon' => 'fas fa-file-invoice',
-                            'url' => 'admin/finish-goods-reportIn',
-                        ],
-                        [
-                            'text' => 'Report Transaction Out',
-                            'icon' => 'fas fa-file-export',
-                            'url' => 'admin/finish-goods-reportOut',
-                        ],
-                        [
-                            'text' => 'Report Summary',
-                            'icon' => 'fas fa-file-contract',
-                            'url' => 'admin/finish-goods-reportSummary',
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'Master Data',
-                    'icon' => 'fas fa-database',
-                    'submenu' => [
-                        [
-                            'text' => 'Product',
-                            'icon' => 'fas fa-box-open',
-                            'url' => 'admin/product',
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'Dashboard',
-                    'icon' => 'fas fa-chart-bar',
-                    'url' => 'admin/dashboard',
+                    'text' => 'Transaction In (Barcode)',
+                    'url' => 'admin/finish-goods-barcode',
+                    'icon_color' => 'warning',
+                    'shift' => 'ml-2',
                 ],
             ],
         ],
         [
-            'header' => 'Admin',
-        ],
-        [
-            'text' => 'Admin',
-            'url' => '#',
-            'icon' => 'fas fa-user-shield',
+            'text' => 'Report',
+            'classes' => 'text-yellow',
+            'icon' => 'fas fa-file-alt',
+            'icon_color' => 'warning',
             'submenu' => [
                 [
-                    'text' => 'User Management',
-                    'icon' => 'fas fa-users-cog',
-                    'url' => '/admin/user-management',
+                    'text' => 'Report Input',
+                    'url' => 'admin/finish-goods-reportIn',
+                    'icon_color' => 'warning',
+                    'shift' => 'ml-2',
                 ],
                 [
-                    'text' => 'Token Management',
-                    'icon' => 'fas fa-key',
-                    'url' => '/admin/token-management',
+                    'text' => 'Report Output',
+                    'url' => 'admin/finish-goods-reportOut',
+                    'icon_color' => 'warning',
+                    'shift' => 'ml-2',
                 ],
                 [
-                    'text' => 'Rack Management',
-                    'icon' => 'fas fa-warehouse',
-                    'url' => '/admin/rack-management',
+                    'text' => 'Report Summary Stock',
+                    'url' => 'admin/finish-goods-reportSummary',
+                    'icon_color' => 'warning',
+                    'shift' => 'ml-2',
                 ],
             ],
         ],
+        [
+            'text' => 'Master Data',
+            'classes' => 'text-yellow',
+            'icon' => 'fas fa-database',
+            'icon_color' => 'warning',
+            'submenu' => [
+                [
+                    'text' => 'Product Type',
+                    'url' => '#',
+                    'icon_color' => 'warning',
+                    'shift' => 'ml-2',
+                ],
+                [
+                    'text' => 'Carton Type',
+                    'url' => '#',
+                    'icon_color' => 'warning',
+                    'shift' => 'ml-2',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Dashboard',
+            'classes' => 'text-yellow text-bold',
+            'icon' => 'fas fa-chart-bar',
+            'icon_color' => 'warning',
+            'url' => 'admin/finish-goods-dashboard',
+        ],
+        [
+            'header' => 'ADMINISTRATOR',
+            'classes' => 'text-cyan text-bold',
+        ],
+        [
+            'text' => 'User Management',
+            'classes' => 'text-cyan text-bold',
+            'icon' => 'fas fa-users-cog',
+            'icon_color' => 'cyan',
+            'url' => 'admin/user-management',
+        ],
+        [
+            'text' => 'Token Management',
+            'classes' => 'text-cyan text-bold',
+            'icon' => 'fas fa-key',
+            'icon_color' => 'cyan',
+            'url' => 'admin/token-management',
+        ],
+        [
+            'text' => 'Rack Management',
+            'classes' => 'text-cyan text-bold',
+            'icon' => 'fas fa-warehouse',
+            'icon_color' => 'cyan',
+            'url' => 'admin/rack-management',
+        ]
     ],
 
     /*

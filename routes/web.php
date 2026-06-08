@@ -7,7 +7,7 @@ use App\Http\Controllers\RackController;
 
 Auth::routes();
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('vendor.adminlte.auth.login');
 });
 
