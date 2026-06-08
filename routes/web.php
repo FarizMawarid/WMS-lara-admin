@@ -79,3 +79,7 @@ Route::post('/admin/rack-management',
 Route::delete('/admin/rack-management/{id}',
     [RackController::class,'destroy']
 );
+
+Route::put('/admin/rack-management/{id}',
+    [RackController::class,'update']
+);

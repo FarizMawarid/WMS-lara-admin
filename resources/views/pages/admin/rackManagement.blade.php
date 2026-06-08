@@ -1,4 +1,7 @@
 @extends('adminlte::page')
+@section('meta_tags')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
 
 @section('title', 'WMS')
 
@@ -111,8 +114,11 @@
 
                             <button
                                 type="button"
-                                class="btn btn-primary btn-sm"
-                                id="btn-edit-rack">
+                                class="btn btn-primary btn-sm btn-edit-rack"
+                                data-id="{{ $rack->id}}"
+                                data-factory="{{ $rack->factory }}"
+                                data-department="{{ $rack->department }}"
+                                data-rack-code="{{ $rack->rack_code}}">
                                 Edit
                             </button>
 

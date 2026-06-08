@@ -183,35 +183,53 @@ $(document).ready(function () {
     // Modal delete rack ends here
 
     // Modal editing rack begins here
-    $('#btn-edit-rack').click(async function (e) {
+    $('.btn-edit-rack').click(async function (e) {
         e.preventDefault();
+
+        let id = $(this).data('id');
+        let factory = $(this).data('factory');
+        let department = $(this).data('department');
+        let rackCode = $(this).attr('data-rack-code');
+
         const { value: formValues } = await Swal.fire({
             title: 'Edit Rack',
             html: `
-                <input id="swal-Factory" class="swal2-input" placeholder="Factory">
-                <input id="swal-Department" class="swal2-input" placeholder="Department">
-                <input id="swal-Rack-code" class="swal2-input" placeholder="Rack Code">
+                <input id="swal-factory" class="swal2-input" value="${factory}">
+                <input id="swal-department" class="swal2-input" value="${department}">
+                <input id="swal-rack-code" class="swal2-input" value="${rackCode}">
             `,
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: 'Save',
             confirmButtonColor: '#24c4dd',
             cancelButtonColor: '#d33',
+
             preConfirm: () => {
                 return {
-                    factory: document.getElementById('swal-Factory').value,
-                    department: document.getElementById('swal-Department').value,
-                    rackCode: document.getElementById('swal-Rack-code').value
+                    factory: document.getElementById('swal-factory').value,
+                    department: document.getElementById('swal-department').value,
+                    rackCode: document.getElementById('swal-rack-code').value
                 };
             }
         });
         if (formValues) {
-            Swal.fire({
-                title: 'Updated!',
-                text: `Rack ${formValues.rackCode} has been updated.`,
-                icon: 'success',
-                confirmButtonColor: '#24c4dd'
-            });
+            
+            let form = document.createElement('form');
+
+            form.method = 'POST';
+            form.action ='/admin/rack-management/' + id;
+
+            form.innerHTML = `
+                <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
+                <input type="hidden" name="_method" value="PUT">
+
+                <input type="hidden" name="factory" value="${formValues.factory}">
+                <input type="hidden" name="department" value="${formValues.department}">
+                <input type="hidden" name="rack-code" value="${formValues.rackcode}">
+            `;
+
+            document.body.appendChild(form);
+            form.submit();
         }
     });
     // Modal editing rack ends here
@@ -228,6 +246,7 @@ $(document).ready(function () {
                 <input id="swal-Season" class="swal2-input" placeholder="Season">
                 <input id="swal-Style" class="swal2-input" placeholder="Style">
             `,
+
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: 'Save',
