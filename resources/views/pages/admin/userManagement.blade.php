@@ -65,7 +65,7 @@
                         <label class="form-label">
                             NIK :
                         </label>
-                        <input 
+                        <input
                         type="text"
                         name="nik"
                         class="form-control" 
@@ -82,8 +82,8 @@
                         <label class="form-label">
                             Password :
                         </label>
-                        <input 
-                        type="password" 
+                        <input
+                        type="password"
                         name="password"
                         class="form-control" 
                         placeholder="Password" 
@@ -95,7 +95,7 @@
                         <label class="form-label">
                             Department :
                         </label>
-                        <select 
+                        <select
                         name="department"
                         class="form-control select2" required>
                             <option selected disabled>
@@ -113,7 +113,7 @@
                     Add User
                 </button>
             </div>
-            
+
         </form>
     </div>
 </div>
@@ -138,15 +138,15 @@
                 <tbody>
                     @foreach($users as $user)
                     <tr>
-                        
+
                         <td>{{ $user->factory }}</td>
                         <td>{{ $user->role }}</td>
                         <td>{{ $user->nik }}</td>
                         <td>{{ $user->department }}</td>
 
                         <td>
-                        <button 
-                            class="btn btn-primary btn-sm btn-edit-user" 
+                        <button
+                            class="btn btn-primary btn-sm btn-edit-user"
                             type="button"
                             data-id="{{ $user->id }}"
                             data-factory="{{ $user->factory }}"
@@ -159,12 +159,12 @@
                         <form action="/admin/user-management/{{ $user->id }}"
                             method="POST"
                             style="display:inline">
-                            
+
                             @csrf
                             @method('DELETE')
 
-                            <button 
-                                class="btn btn-danger btn-sm btn-delete-user" 
+                            <button
+                                class="btn btn-danger btn-sm btn-delete-user"
                                 type="submit">
                                 Delete
                             </button>
@@ -187,10 +187,10 @@
 @stop
 
 @section('js')
-<script 
+<script
     src="{{ asset('js/plugins.js') }}">
 </script>
-<script 
+<script
     src="{{ asset('js/modalAlert.js') }}">
 </script>
 
