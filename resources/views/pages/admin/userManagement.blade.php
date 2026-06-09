@@ -69,7 +69,7 @@
                         type="text"
                         name="nik"
                         class="form-control" 
-                        placeholder="nik" 
+                        placeholder="NIK" 
                         autocomplete="off"
                         required>
                         <div class="invalid-feedback">

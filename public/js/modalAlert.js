@@ -42,10 +42,28 @@ $(document).ready(function () {
             title: 'Edit User',
 
             html: `
-                <input id="swal-factory" class="swal2-input" value="${factory}">
-                <input id="swal-role" class="swal2-input" value="${role}">
-                <input id="swal-nik" class="swal2-input" value="${nik}">
-                <input id="swal-department" class="swal2-input" value="${department}">
+                <select id=swal-factory class="swal2-select" value="${factory}">
+                    <option class="swal2-option">ESGI KLego</option>
+                    <option class="swal2-option">ESGI Sambi</option>
+                </select>
+                <select id=swal-role class="swal2-select" value="${role}">
+                    <option class="swal2-option">Admin</option>
+                    <option class="swal2-option">User</option>
+                </select>
+                <input 
+                    id="swal-nik" 
+                    class="swal2-input" 
+                    value="${nik}" 
+                    style="
+                        width:225px;
+                        height:45px;
+                        border: solid 1px gray;
+                        border-radius: 0;
+                        ">
+                <select id=swal-department class="swal2-select" value="${department}">
+                    <option class="swal2-option">Finish Goods 1</option>
+                    <option class="swal2-option">Finish Goods 2</option>
+                </select>
             `,
 
             focusConfirm: false,
@@ -230,9 +248,24 @@ $(document).ready(function () {
         const { value: formValues } = await Swal.fire({
             title: 'Edit Rack',
             html: `
-                <input id="swal-factory" class="swal2-input" value="${factory}">
-                <input id="swal-department" class="swal2-input" value="${department}">
-                <input id="swal-rack-code" class="swal2-input" value="${rackCode}">
+                <select id=swal-factory class="swal2-select" value="${factory}">
+                    <option class="swal2-option">ESGI KLego</option>
+                    <option class="swal2-option">ESGI Sambi</option>
+                </select>
+                <select id=swal-department class="swal2-select" value="${department}">
+                    <option class="swal2-option">Finish Goods 1</option>
+                    <option class="swal2-option">Finish Goods 2</option>
+                </select>
+                <input 
+                    id="swal-rack-code" 
+                    class="swal2-input" 
+                    value="${rackCode}"
+                    style="
+                        width:225px;
+                        height:45px;
+                        border: solid 1px gray;
+                        border-radius: 0;
+                        ">
             `,
             focusConfirm: false,
             showCancelButton: true,
