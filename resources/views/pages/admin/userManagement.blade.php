@@ -26,6 +26,9 @@
         <form action="/admin/user-management" method="POST">
             @csrf
 
+            <input type="text" style="display:none">
+            <input type="password" style="display:none">
+
             <div class="card-body">
                 <div class="row">
 
@@ -66,7 +69,9 @@
                         type="text"
                         name="nik"
                         class="form-control" 
-                        placeholder="Username" required>
+                        placeholder="nik" 
+                        autocomplete="off"
+                        required>
                         <div class="invalid-feedback">
                             Please enter a NIK.
                     </div>
@@ -81,7 +86,9 @@
                         type="password" 
                         name="password"
                         class="form-control" 
-                        placeholder="Password" required>
+                        placeholder="Password" 
+                        autocomplete="new-password"
+                        required>
                     </div>
 
                     <div class="col-md-2">
@@ -186,4 +193,26 @@
 <script 
     src="{{ asset('js/modalAlert.js') }}">
 </script>
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'success',
+        text: '{{ session('success')}}',
+        confirmButtonColor: '#24c4dd'
+    });
+</script>
+@endif
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'success',
+        text: '{{ session('success')}}',
+        confirmButtonColor: '#24c4dd'
+    });
+</script>
+@endif
 @stop

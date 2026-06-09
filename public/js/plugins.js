@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     //-------select2 begin here-------//
     $('.select2').select2({
-        width: '100%'
+        minimumResultsForSearch: Infinity
     });
     //-------select2 end here-------//
 
