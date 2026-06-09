@@ -23,14 +23,17 @@
                 </button>
             </div>
         </div>
-        <form class="needs-validation" novalidate>
+        <form action="/admin/user-management" method="POST">
+            @csrf
+
             <div class="card-body">
                 <div class="row">
+
                     <div class="col-md-2">
                         <label class="form-label">
                             Factory :
                         </label>
-                        <select class="form-control select2" required>
+                        <select name="factory" class="form-control select2" required>
                             <option selected disabled>
                                 Select Factory
                             </option>
@@ -39,63 +42,71 @@
                         </select>
                         <div class="invalid-feedback">
                             Please select Factory.
-                        </div>
                     </div>
+                    </div>
+
                     <div class="col-md-2">
                         <label class="form-label">
                             Role :
                         </label>
-                        <select class="form-control select2" required>
+                        <select name="role" class="form-control select2" required>
                             <option selected disabled>
                                 Select Role
                             </option>
                             <option>Admin</option>
                             <option>User</option>
                         </select>
-                        <div class="invalid-feedback">
-                            Please select Role.
-                        </div>
                     </div>
+
                     <div class="col-md-2">
                         <label class="form-label">
                             NIK :
                         </label>
-                        <input type="number" class="form-control" placeholder="Username" required>
+                        <input 
+                        type="text"
+                        name="nik"
+                        class="form-control" 
+                        placeholder="Username" required>
                         <div class="invalid-feedback">
                             Please enter a NIK.
-                        </div>
                     </div>
+                    </div>
+
+
                     <div class="col-md-2">
                         <label class="form-label">
                             Password :
                         </label>
-                        <input type="password" class="form-control" placeholder="Password" required>
-                        <div class="invalid-feedback">
-                            Please enter a password.
-                        </div>
+                        <input 
+                        type="password" 
+                        name="password"
+                        class="form-control" 
+                        placeholder="Password" required>
                     </div>
+
                     <div class="col-md-2">
                         <label class="form-label">
                             Department :
                         </label>
-                        <select class="form-control select2" required>
+                        <select 
+                        name="department"
+                        class="form-control select2" required>
                             <option selected disabled>
                                 Select Department
                             </option>
                             <option>Finish Goods 1</option>
                             <option>Finish Goods 2</option>
                         </select>
-                        <div class="invalid-feedback">
-                            Please select Department.
-                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="card-footer">
                 <button class="btn btn-info" type="button" id="btn-add-user">
                     Add User
                 </button>
             </div>
+            
         </form>
     </div>
 </div>
@@ -118,16 +129,44 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($users as $user)
                     <tr>
-                        <td>ESGI Klego</td>
-                        <td>Admin</td>
-                        <td>admin_klego</td>
-                        <td>Finish Goods 1</td>
+                        
+                        <td>{{ $user->factory }}</td>
+                        <td>{{ $user->role }}</td>
+                        <td>{{ $user->nik }}</td>
+                        <td>{{ $user->department }}</td>
+
                         <td>
-                            <button class="btn btn-primary btn-sm" type="button" id="btn-edit-user">Edit</button>
-                            <button class="btn btn-danger btn-sm" type="button" id="btn-delete-user">Delete</button>
+                        <button 
+                            class="btn btn-primary btn-sm btn-edit-user" 
+                            type="button"
+                            data-id="{{ $user->id }}"
+                            data-factory="{{ $user->factory }}"
+                            data-role="{{ $user->role }}"
+                            data-nik="{{ $user->nik }}"
+                            data-department="{{ $user->department }}">
+                            Edit
+                        </button>
+
+                        <form action="/admin/user-management/{{ $user->id }}"
+                            method="POST"
+                            style="display:inline">
+                            
+                            @csrf
+                            @method('DELETE')
+
+                            <button 
+                                class="btn btn-danger btn-sm btn-delete-user" 
+                                type="submit">
+                                Delete
+                            </button>
+
+                        </form>
                         </td>
+
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

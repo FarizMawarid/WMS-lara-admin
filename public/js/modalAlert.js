@@ -3,7 +3,11 @@
 $(document).ready(function () {
     // Modal adding user begins here
     $('#btn-add-user').click(function (e) {
+
         e.preventDefault();
+
+        let form = $(this).closest('form');
+
         Swal.fire({
             title: "Are you sure?",
             text: "Are you sure you want to add this user?",
@@ -12,56 +16,89 @@ $(document).ready(function () {
             confirmButtonColor: "#24c4dd",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
-            }).then((result) => {
-            if (result.isConfirmed) Swal.fire({
-                title: "Added!",
-                text: "The user has been added.",
-                icon: "success",
-                confirmButtonColor: "#24c4dd",
-            });
-            });
+
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
     });
     // Modal adding user ends here
 
     // Modal editing user begins here
-    $('#btn-edit-user').click(async function (e) {
+    $('.btn-edit-user').click(async function (e) {
+
         e.preventDefault();
+
+        let id = $(this).data('id');
+        let factory = $(this).data('factory');
+        let role = $(this).data('role');
+        let nik = $(this).data('nik');
+        let department = $(this).data('department');
+
         const { value: formValues } = await Swal.fire({
+
             title: 'Edit User',
+
             html: `
-                <input id="swal-Factory" class="swal2-input" placeholder="Factory">
-                <input id="swal-NIK" type="number" class="swal2-input" placeholder="NIK">
-                <input id="swal-role" class="swal2-input" placeholder="Role">
-                <input id="swal-department" class="swal2-input" placeholder="Department">
+                <input id="swal-factory" class="swal2-input" value="${factory}">
+                <input id="swal-role" class="swal2-input" value="${role}">
+                <input id="swal-nik" class="swal2-input" value="${nik}">
+                <input id="swal-department" class="swal2-input" value="${department}">
             `,
+
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: 'Save',
             confirmButtonColor: '#24c4dd',
             cancelButtonColor: '#d33',
+
             preConfirm: () => {
+
                 return {
-                    factory: document.getElementById('swal-Factory').value,
-                    NIK: document.getElementById('swal-NIK').value,
+
+                    factory: document.getElementById('swal-factory').value,
+                    nik: document.getElementById('swal-nik').value,
                     role: document.getElementById('swal-role').value,
                     department: document.getElementById('swal-department').value
                 };
             }
         });
         if (formValues) {
-            Swal.fire({
-                title: 'Updated!',
-                text: `User ${formValues.NIK} has been updated.`,
-                icon: 'success',
-                confirmButtonColor: '#24c4dd'
-            });
-        }
-    });
+
+            console.log(formValues);
+            
+            let form = document.createElement('form');
+
+            form.method = 'POST';
+            form.action = '/admin/user-management/' + id;
+
+            form.innerHTML = `
+                <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
+                <input type="hidden" name="_method" value="PUT">
+
+                <input type="hidden" name="factory" value="${formValues.factory}">
+                <input type="hidden" name="role" value="${formValues.role}">
+                <input type="hidden" name="nik" value="${formValues.nik}">
+                <input type="hidden" name="department" value="${formValues.department}">
+        `;
+
+        document.body.appendChild(form);
+
+        form.submit();
+    }
+
+});
     // Modal editing user ends here
 
     // Modal delete user begins here
-    $('#btn-delete-user').click(function (e) {
+    $('.btn-delete-user').click(function (e) {
+
         e.preventDefault();
+
+        let form = $(this).closest('form');
+
         Swal.fire({
             title: "Are you sure?",
             text: "Are you sure you want to delete this user?",
@@ -70,14 +107,13 @@ $(document).ready(function () {
             confirmButtonColor: "#24c4dd",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
+
             }).then((result) => {
-            if (result.isConfirmed) Swal.fire({
-                title: "Deleted!",
-                text: "The user has been deleted.",
-                icon: "success",
-                confirmButtonColor: "#24c4dd",
-            });
-            });
+
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
     });
     // Modal delete user ends here
 });
@@ -225,7 +261,7 @@ $(document).ready(function () {
 
                 <input type="hidden" name="factory" value="${formValues.factory}">
                 <input type="hidden" name="department" value="${formValues.department}">
-                <input type="hidden" name="rack-code" value="${formValues.rackcode}">
+                <input type="hidden" name="rack_code" value="${formValues.rackCode}">
             `;
 
             document.body.appendChild(form);

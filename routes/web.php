@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RackController;
+use App\Http\Controllers\UserController;
 
 
 Auth::routes();
@@ -60,14 +61,34 @@ route::get('/admin/finish-goods-dashboard', function () {
 });
 
 //Admin
-Route::get('/admin/user-management', function () {
-    return view('pages.admin.userManagement');
-});
+//User Management
+Route::get(
+    '/admin/user-management',
+    [UserController::class,'index']
+);
+
+Route::post(
+    '/admin/user-management',
+    [UserController::class,'store']
+);
+
+Route::put(
+    '/admin/user-management/{id}',
+    [UserController::class,'update']
+);
+
+Route::delete(
+    '/admin/user-management/{id}',
+    [UserController::class,'destroy']
+);
+
 
 Route::get('/admin/token-management', function () {
     return view('pages.admin.tokenManagement');
 });
 
+
+//Rack Management
 Route::get('/admin/rack-management',
     [RackController::class,'index']
 );

@@ -37,6 +37,7 @@ class RackController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $rack = Rack::findorFail($id);
 
         $request->validate([
