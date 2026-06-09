@@ -391,7 +391,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Product Type',
-                    'url' => '#',
+                    'url' => 'admin/product-type',
                     'icon_color' => 'warning',
                     'shift' => 'ml-2',
                 ],
