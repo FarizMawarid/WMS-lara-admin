@@ -68,8 +68,8 @@
                         <input
                         type="text"
                         name="nik"
-                        class="form-control" 
-                        placeholder="NIK" 
+                        class="form-control"
+                        placeholder="NIK"
                         autocomplete="off"
                         required>
                         <div class="invalid-feedback">
@@ -85,8 +85,8 @@
                         <input
                         type="password"
                         name="password"
-                        class="form-control" 
-                        placeholder="Password" 
+                        class="form-control"
+                        placeholder="Password"
                         autocomplete="new-password"
                         required>
                     </div>
@@ -109,7 +109,7 @@
             </div>
 
             <div class="card-footer">
-                <button class="btn btn-info" type="button" id="btn-add-user">
+                <button class="btn btn-info" type="submit" id="btn-add-user">
                     Add User
                 </button>
             </div>
