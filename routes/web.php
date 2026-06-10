@@ -12,8 +12,8 @@ Route::get('/', function () {
     return view('vendor.adminlte.auth.login');
 });
 
-Route::get('/register', function () {
-    return view('vendor.adminlte.auth.register');
+Route::get('/', function () {
+    return view('vendor.adminlte.auth.logout');
 });
 
 //Home
