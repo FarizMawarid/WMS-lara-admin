@@ -78,18 +78,20 @@
                             <th>PO</th>
                             <th>Style</th>
                             <th>Destination</th>
-                            <th>Token</th>
+                            <th>Qty Carton</th>
+                            <th>Quantity Garment</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>ESGI Klego</td>
-                            <td>Finish Goods 1</td>
-                            <td>192.168.1.100</td>
-                            <td>http://warehouse-management-system-esgi-klego</td>
+                            <td>PO</td>
+                            <td>Style</td>
+                            <td>Destination</tds>
+                            <td>Qty Carton</td>
+                            <td>Quantity Garment</td>
                             <td>
-                                <button class="btn btn-danger btn-sm" type="button" id="btn-delete-token">Delete</button>
+                                <button class="btn btn-info" id="btn-transaction-out" type="button">Out</button>
                             </td>
                         </tr>
                     </tbody>
@@ -104,15 +106,16 @@
 @section('css')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"/>
 <link rel="stylesheet" href="{{ asset('css/select2Addon.css') }}">
-<style>
-    body{
-        overflow: hidden;
-    }
-</style>
 @stop
 
 @section('js')
 <script
+    src="{{ asset('js/plugins.js') }}">
+</script>
+<script
     src="{{ asset('js/index.js') }}">
+</script>
+<script
+    src="{{ asset('js/modalAlert.js') }}">
 </script>
 @stop
