@@ -81,28 +81,30 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="userTable" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Factory</th>
-                        <th>Department</th>
-                        <th>IP Address</th>
-                        <th>Token</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>ESGI Klego</td>
-                        <td>Finish Goods 1</td>
-                        <td>192.168.1.100</td>
-                        <td>http://warehouse-management-system-esgi-klego</td>
-                        <td>
-                            <button class="btn btn-danger btn-sm" type="button" id="btn-delete-token">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="userTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Factory</th>
+                            <th>Department</th>
+                            <th>IP Address</th>
+                            <th>Token</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ESGI Klego</td>
+                            <td>Finish Goods 1</td>
+                            <td>192.168.1.100</td>
+                            <td>http://warehouse-management-system-esgi-klego</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" type="button" id="btn-delete-token">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -114,10 +116,10 @@
 @stop
 
 @section('js')
-<script 
+<script
     src="{{ asset('js/plugins.js') }}">
 </script>
-<script 
+<script
     src="{{ asset('js/modalAlert.js') }}">
 </script>
 @stop

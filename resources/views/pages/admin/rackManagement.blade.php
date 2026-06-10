@@ -89,52 +89,54 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="userTable" class="table table-bordered table-striped">
-                <thead>
+            <div class="table-responsive">
+                <table id="userTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Factory</th>
+                            <th>Department</th>
+                            <th>Rack Code</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($racks as $rack)
                     <tr>
-                        <th>Factory</th>
-                        <th>Department</th>
-                        <th>Rack Code</th>
-                        <th>Action</th>
+                        <td>{{ $rack->factory }}</td>
+                        <td>{{ $rack->department }}</td>
+                        <td>{{ $rack->rack_code }}</td>
+                        <td>
+
+                            <form action="/admin/rack-management/{{ $rack->id }}"
+                                method="POST">
+
+                                @csrf
+                                @method('DELETE')
+
+                                <button
+                                    type="button"
+                                    class="btn btn-primary btn-sm btn-edit-rack"
+                                    data-id="{{ $rack->id}}"
+                                    data-factory="{{ $rack->factory }}"
+                                    data-department="{{ $rack->department }}"
+                                    data-rack-code="{{ $rack->rack_code}}">
+                                    Edit
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger btn-sm btn-delete-rack">
+                                    Delete
+                                </button>
+
+                            </form>
+
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                @foreach($racks as $rack)
-                <tr>
-                    <td>{{ $rack->factory }}</td>
-                    <td>{{ $rack->department }}</td>
-                    <td>{{ $rack->rack_code }}</td>
-                    <td>
-
-                        <form action="/admin/rack-management/{{ $rack->id }}"
-                            method="POST">
-
-                            @csrf
-                            @method('DELETE')
-
-                            <button
-                                type="button"
-                                class="btn btn-primary btn-sm btn-edit-rack"
-                                data-id="{{ $rack->id}}"
-                                data-factory="{{ $rack->factory }}"
-                                data-department="{{ $rack->department }}"
-                                data-rack-code="{{ $rack->rack_code}}">
-                                Edit
-                            </button>
-
-                            <button
-                                type="submit"
-                                class="btn btn-danger btn-sm btn-delete-rack">
-                                Delete
-                            </button>
-
-                        </form>
-
-                    </td>
-                </tr>
-                @endforeach
-                </tbody>
-            </table>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

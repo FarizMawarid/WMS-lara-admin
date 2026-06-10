@@ -125,57 +125,59 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="userTable" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Factory</th>
-                        <th>Role</th>
-                        <th>NIK</th>
-                        <th>Department</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr>
+            <div class="table-responsive">
+                <table id="userTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Factory</th>
+                            <th>Role</th>
+                            <th>NIK</th>
+                            <th>Department</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($users as $user)
+                        <tr>
 
-                        <td>{{ $user->factory }}</td>
-                        <td>{{ $user->role }}</td>
-                        <td>{{ $user->nik }}</td>
-                        <td>{{ $user->department }}</td>
+                            <td>{{ $user->factory }}</td>
+                            <td>{{ $user->role }}</td>
+                            <td>{{ $user->nik }}</td>
+                            <td>{{ $user->department }}</td>
 
-                        <td>
-                        <button
-                            class="btn btn-primary btn-sm btn-edit-user"
-                            type="button"
-                            data-id="{{ $user->id }}"
-                            data-factory="{{ $user->factory }}"
-                            data-role="{{ $user->role }}"
-                            data-nik="{{ $user->nik }}"
-                            data-department="{{ $user->department }}">
-                            Edit
-                        </button>
-
-                        <form action="/admin/user-management/{{ $user->id }}"
-                            method="POST"
-                            style="display:inline">
-
-                            @csrf
-                            @method('DELETE')
-
+                            <td>
                             <button
-                                class="btn btn-danger btn-sm btn-delete-user"
-                                type="submit">
-                                Delete
+                                class="btn btn-primary btn-sm btn-edit-user"
+                                type="button"
+                                data-id="{{ $user->id }}"
+                                data-factory="{{ $user->factory }}"
+                                data-role="{{ $user->role }}"
+                                data-nik="{{ $user->nik }}"
+                                data-department="{{ $user->department }}">
+                                Edit
                             </button>
 
-                        </form>
-                        </td>
+                            <form action="/admin/user-management/{{ $user->id }}"
+                                method="POST"
+                                style="display:inline">
 
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                @csrf
+                                @method('DELETE')
+
+                                <button
+                                    class="btn btn-danger btn-sm btn-delete-user"
+                                    type="submit">
+                                    Delete
+                                </button>
+
+                            </form>
+                            </td>
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

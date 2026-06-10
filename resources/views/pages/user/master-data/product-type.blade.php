@@ -14,8 +14,12 @@
                 Data Master Product Type
             </div>
             <div class="card-tools">
-                <button class="btn btn-info" type="button" id="btn-add-product-type">
+                <button class="btn btn-danger" type="button" id="btn-add-product-type">
                     Add Product Type
+                </button>
+                <button class="btn btn-success" type="button" id="btn-import-product-type">
+                    <i class="fa-solid fa-file-excel"></i>
+                    Import
                 </button>
             </div>
         </div>
@@ -27,6 +31,7 @@
                         <th>KP</th>
                         <th>Season</th>
                         <th>Style</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
             </table>
@@ -37,6 +42,11 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/select2Addon.css') }}">
+<link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}">
+<link rel="stylesheet" href="{{ asset('css/solid.css') }}">
+<link rel="stylesheet" href="{{ asset('css/regular.css') }}">
+<link rel="stylesheet" href="{{ asset('css/light.css') }}">
+<link rel="stylesheet" href="{{ asset('css/duotone.css') }}">
 @stop
 
 @section('js')
