@@ -37,7 +37,7 @@
                     {{-- PO FILTER --}}
                     <div class="col-md-2 filter-po">
                         <label class="form-label">PO :</label>
-                        <select class="form-select select2">
+                        <select class="form-select select2" required>
                             <option selected disabled>Select PO</option>
                             <option>PO-001</option>
                             <option>PO-002</option>
@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-info" type="button">
+                <button class="btn btn-info" type="submit">
                     Find
                 </button>
             </div>

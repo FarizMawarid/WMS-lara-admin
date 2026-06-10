@@ -26,6 +26,23 @@
     <form action="{{ $loginUrl }}" method="post">
         @csrf
 
+        {{-- Factory field --}}
+        <div class="input-group mb-3">
+            <select name="factory" class="form-control" required>
+                <option selected disabled>
+                    Select Factory
+                </option>
+                <option>ESGI Klego</option>
+                <option>ESGI Sambi</option>
+            </select>
+
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-industry {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
+        </div>
+
         {{-- Email field --}}
         <div class="input-group mb-3">
             <input type="number" name="nik" class="form-control" placeholder="NIK">
