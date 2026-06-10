@@ -345,14 +345,14 @@ return [
             'icon_color' => 'warning',
             'submenu' => [
                 [
-                    'text' => 'Transaction In (Manual)',
+                    'text' => 'Transaction In',
                     'url' => 'admin/finish-goods-manual',
                     'icon_color' => 'warning',
                     'shift' => 'ml-2',
                 ],
                 [
-                    'text' => 'Transaction In (Barcode)',
-                    'url' => 'admin/finish-goods-barcode',
+                    'text' => 'Transaction Out',
+                    'url' => 'admin/finish-goods-out',
                     'icon_color' => 'warning',
                     'shift' => 'ml-2',
                 ],

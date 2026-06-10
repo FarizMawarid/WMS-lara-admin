@@ -3,7 +3,7 @@
 @section('title', 'WMS')
 
 @section('content_header')
-    <h1>Transaction In | Finish Goods</h1>
+    <h1>Transaction Out | Finish Goods</h1>
 @stop
 
 @section('content')
@@ -22,7 +22,7 @@
                             PO :
                         </label>
                         <select class="form-select select2" required>
-                            <option selected disabled>
+                            <option value="" selected disabled>
                                 Select PO
                             </option>
                             <option>PO-001</option>
@@ -41,8 +41,6 @@
                             <option selected disabled>
                                 Select Style
                             </option>
-                            <option>Style A</option>
-                            <option>Style B</option>
                         </select>
                     </div>
                     <div class="col-md-2">
@@ -53,51 +51,51 @@
                             <option selected disabled>
                                 Select Destination
                             </option>
-                            <option>Destination A</option>
-                            <option>Destination B</option>
                         </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">
-                            Quantity Carton :
-                        </label>
-                        <input type="number" class="form-control" required>
-                        <div class="invalid-feedback">
-                            Please input quantity carton
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">
-                            Quantity Garment :
-                        </label>
-                        <input type="number" class="form-control" required>
-                        <div class="invalid-feedback">
-                            Please input quantity garment
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">
-                            Rack :
-                        </label>
-                        <select class="form-select select2" required>
-                            <option selected disabled>
-                                Select Rack
-                            </option>
-                            <option>Rack A</option>
-                            <option>Rack B</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select rack
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success" type="submit">
-                    Submit
+                <button class="btn btn-info" type="submit">
+                    Find
                 </button>
             </div>
         </form>
+    </div>
+</div>
+<div class="col-lg-12">
+    <div class="card card-info card-outline mb-4">
+        <div class="card-header">
+            <div class="card-title">
+                Carton In
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="userTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>PO</th>
+                            <th>Style</th>
+                            <th>Destination</th>
+                            <th>Token</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ESGI Klego</td>
+                            <td>Finish Goods 1</td>
+                            <td>192.168.1.100</td>
+                            <td>http://warehouse-management-system-esgi-klego</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" type="button" id="btn-delete-token">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 @stop
@@ -106,6 +104,11 @@
 @section('css')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"/>
 <link rel="stylesheet" href="{{ asset('css/select2Addon.css') }}">
+<style>
+    body{
+        overflow: hidden;
+    }
+</style>
 @stop
 
 @section('js')
