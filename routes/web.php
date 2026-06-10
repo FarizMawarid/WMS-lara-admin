@@ -38,6 +38,10 @@ Route::get('/admin/finish-goods-barcode-transaction', function () {
     return view('pages.user.transaction.finishgoods.transactionInBarcode2');
 });
 
+Route::get('/admin/finish-goods-out', function () {
+    return view('pages.user.transaction.finishgoods.transactionOut');
+});
+
 
 //Report
 Route::get('/admin/finish-goods-reportIn', function () {
