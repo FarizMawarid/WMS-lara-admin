@@ -13,7 +13,7 @@ $(document).ready(function () {
             text: "Are you sure you want to add this user?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#24c4dd",
+            confirmButtonColor: "#28a745",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
 
@@ -50,10 +50,10 @@ $(document).ready(function () {
                     <option class="swal2-option">Admin</option>
                     <option class="swal2-option">User</option>
                 </select>
-                <input 
-                    id="swal-nik" 
-                    class="swal2-input" 
-                    value="${nik}" 
+                <input
+                    id="swal-nik"
+                    class="swal2-input"
+                    value="${nik}"
                     style="
                         width:225px;
                         height:45px;
@@ -69,7 +69,7 @@ $(document).ready(function () {
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: 'Save',
-            confirmButtonColor: '#24c4dd',
+            confirmButtonColor: '#28a745',
             cancelButtonColor: '#d33',
 
             preConfirm: () => {
@@ -86,7 +86,7 @@ $(document).ready(function () {
         if (formValues) {
 
             console.log(formValues);
-            
+
             let form = document.createElement('form');
 
             form.method = 'POST';
@@ -122,7 +122,7 @@ $(document).ready(function () {
             text: "Are you sure you want to delete this user?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#24c4dd",
+            confirmButtonColor: "#28a745",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
 
@@ -147,7 +147,7 @@ $(document).ready(function () {
             text: "Are you sure you want to generate this token?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#24c4dd",
+            confirmButtonColor: "#28a745",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
         }).then((result) => {
@@ -155,7 +155,7 @@ $(document).ready(function () {
                 title: "Generated!",
                 text: "The token has been generated.",
                 icon: "success",
-                confirmButtonColor: "#24c4dd",
+                confirmButtonColor: "#28a745",
             });
         });
     });
@@ -169,7 +169,7 @@ $(document).ready(function () {
             text: "Are you sure you want to delete this token?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#24c4dd",
+            confirmButtonColor: "#28a745",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
             }).then((result) => {
@@ -177,7 +177,7 @@ $(document).ready(function () {
                 title: "Deleted!",
                 text: "The token has been deleted.",
                 icon: "success",
-                confirmButtonColor: "#24c4dd",
+                confirmButtonColor: "#28a745",
             });
             });
     });
@@ -199,7 +199,7 @@ $(document).ready(function () {
             text: "Are you sure you want to generate this rack?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#24c4dd",
+            confirmButtonColor: "#28a745",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
 
@@ -222,7 +222,7 @@ $(document).ready(function () {
             text: "Are you sure you want to delete this rack?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#24c4dd",
+            confirmButtonColor: "#28a745",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
 
@@ -256,9 +256,9 @@ $(document).ready(function () {
                     <option class="swal2-option">Finish Goods 1</option>
                     <option class="swal2-option">Finish Goods 2</option>
                 </select>
-                <input 
-                    id="swal-rack-code" 
-                    class="swal2-input" 
+                <input
+                    id="swal-rack-code"
+                    class="swal2-input"
                     value="${rackCode}"
                     style="
                         width:225px;
@@ -270,7 +270,7 @@ $(document).ready(function () {
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: 'Save',
-            confirmButtonColor: '#24c4dd',
+            confirmButtonColor: '#28a745',
             cancelButtonColor: '#d33',
 
             preConfirm: () => {
@@ -282,7 +282,7 @@ $(document).ready(function () {
             }
         });
         if (formValues) {
-            
+
             let form = document.createElement('form');
 
             form.method = 'POST';
@@ -304,7 +304,9 @@ $(document).ready(function () {
     // Modal editing rack ends here
 });
 
-// ------------- Modal Alert Add Produc Type -----------------
+// ------------- Modal Alert Add Product Type -----------------
+$(document).ready(function () {
+      // Modal add product type
     $('#btn-add-product-type').click(async function (e) {
         e.preventDefault();
         const { value: formValues } = await Swal.fire({
@@ -319,7 +321,7 @@ $(document).ready(function () {
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: 'Save',
-            confirmButtonColor: '#24c4dd',
+            confirmButtonColor: '#28a745',
             cancelButtonColor: '#d33',
             preConfirm: () => {
                 return {
@@ -335,8 +337,60 @@ $(document).ready(function () {
                 title: 'Updated!',
                 text: `Product Type has been updated.`,
                 icon: 'success',
-                confirmButtonColor: '#24c4dd'
+                confirmButtonColor: '#28a745'
             });
         }
     });
     // Modal editing user ends here
+    $('#btn-import-product-type').click(async function (e) {
+
+        e.preventDefault();
+
+        let form = $(this).closest('form');
+
+        const { value: file } = await Swal.fire({
+            title: 'Import File',
+            input: 'file',
+            inputAttributes: {
+                accept: '.xlsx,.xls,.csv',
+                'aria-label': 'Upload import file'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Import',
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#d33',
+        });
+
+        if (file) {
+
+            const formData = new FormData(form[0]);
+            formData.append('file', file);
+
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    Swal.fire(
+                        'Success',
+                        'File imported successfully',
+                        'success'
+                    );
+                },
+                error: function (xhr) {
+                    Swal.fire(
+                        'Error',
+                        'Failed to import file',
+                        'error'
+                    );
+                }
+            });
+
+        }
+
+    });
+
+});
+

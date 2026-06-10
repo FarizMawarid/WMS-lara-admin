@@ -84,32 +84,34 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="userTable" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Department</th>
-                        <th>PO</th>
-                        <th>Style</th>
-                        <th>Destination</th>
-                        <th>Outstanding Garment</th>
-                        <th>Outstanding Carton</th>
-                        <th>Rack</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2025-14-01</td>
-                        <td>Finish Goods 1</td>
-                        <td>PO-001</td>
-                        <td>Style A</td>
-                        <td>Destination A</td>
-                        <td>1000</td>
-                        <td>100</td>
-                        <td>Rack 1</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="userTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Department</th>
+                            <th>PO</th>
+                            <th>Style</th>
+                            <th>Destination</th>
+                            <th>Outstanding Garment</th>
+                            <th>Outstanding Carton</th>
+                            <th>Rack</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2025-14-01</td>
+                            <td>Finish Goods 1</td>
+                            <td>PO-001</td>
+                            <td>Style A</td>
+                            <td>Destination A</td>
+                            <td>1000</td>
+                            <td>100</td>
+                            <td>Rack 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
