@@ -68,25 +68,21 @@ route::get('/admin/finish-goods-dashboard', function () {
 
 //Admin
 //User Management
-Route::get(
-    '/admin/user-management',
-    [UserController::class,'index']
-);
+Route::middleware(['auth','role:Admin'])->group(function(){
 
-Route::post(
-    '/admin/user-management',
-    [UserController::class,'store']
-);
+    Route::get('/admin/user-management',
+        [UserController::class,'index']);
 
-Route::put(
-    '/admin/user-management/{id}',
-    [UserController::class,'update']
-);
+    Route::post('/admin/user-management',
+        [UserController::class,'store']);
 
-Route::delete(
-    '/admin/user-management/{id}',
-    [UserController::class,'destroy']
-);
+    Route::put('/admin/user-management/{id}',
+        [UserController::class,'update']);
+
+    Route::delete('/admin/user-management/{id}',
+        [UserController::class,'destroy']);
+
+});
 
 
 Route::get('/admin/token-management', function () {
@@ -95,18 +91,18 @@ Route::get('/admin/token-management', function () {
 
 
 //Rack Management
-Route::get('/admin/rack-management',
-    [RackController::class,'index']
-);
+Route::middleware(['auth','role:Admin'])->group(function(){
 
-Route::post('/admin/rack-management',
-    [RackController::class,'store']
-);
+    Route::get('/admin/rack-management',
+        [RackController::class,'index']);
 
-Route::delete('/admin/rack-management/{id}',
-    [RackController::class,'destroy']
-);
+    Route::post('/admin/rack-management',
+        [RackController::class,'store']);
 
-Route::put('/admin/rack-management/{id}',
-    [RackController::class,'update']
-);
+    Route::put('/admin/rack-management/{id}',
+        [RackController::class,'update']);
+
+    Route::delete('/admin/rack-management/{id}',
+        [RackController::class,'destroy']);
+
+});

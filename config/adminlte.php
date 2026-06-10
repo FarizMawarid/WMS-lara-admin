@@ -421,6 +421,7 @@ return [
             'icon' => 'fas fa-users-cog',
             'icon_color' => 'cyan',
             'url' => 'admin/user-management',
+            'use_gate' => true,
         ],
         [
             'text' => 'Token Management',
