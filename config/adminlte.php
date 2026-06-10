@@ -259,6 +259,7 @@ return [
     'use_route_url' => false,
     'dashboard_url' => 'home',
     'logout_url' => 'logout',
+    'logout_method' => 'post',
     'login_url' => '/login',
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
@@ -318,7 +319,7 @@ return [
         ],
         [
             'text' => 'Logout',
-            'url' => 'logout',
+            'url' => '/login',
             'icon' => 'fas fa-sign-out-alt',
             'topnav_right' => true,
         ],

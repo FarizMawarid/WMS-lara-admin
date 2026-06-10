@@ -6,14 +6,16 @@ use App\Http\Controllers\RackController;
 use App\Http\Controllers\UserController;
 
 
-Auth::routes();
+Auth::routes([
+    'register' => false,
+]);
 
 Route::get('/', function () {
-    return view('vendor.adminlte.auth.login');
-});
+    return redirect('/login');
+});;
 
-Route::get('/', function () {
-    return view('vendor.adminlte.auth.logout');
+Route::post('/', function () {
+    return view('/login');
 });
 
 //Home
