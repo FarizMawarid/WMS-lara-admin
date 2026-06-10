@@ -341,7 +341,7 @@ $(document).ready(function () {
             });
         }
     });
-    // Modal editing user ends here
+    // Modal import excel start here
     $('#btn-import-product-type').click(async function (e) {
 
         e.preventDefault();
