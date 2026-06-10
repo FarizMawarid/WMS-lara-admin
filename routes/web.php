@@ -6,64 +6,53 @@ use App\Http\Controllers\RackController;
 use App\Http\Controllers\UserController;
 
 
-Auth::routes([
-    'register' => false,
-]);
+Route::middleware(['auth'])->group(function () {
 
-Route::get('/', function () {
-    return redirect('/login');
-});;
+    // Home
+    Route::get('/admin/home', function () {
+        return view('home');
+    });
 
-Route::post('/', function () {
-    return view('/login');
-});
+    // Transaction
+    Route::get('/admin/finish-goods-manual', function () {
+        return view('pages.user.transaction.finishgoods.transactionIn');
+    });
 
-//Home
-Route::get('/admin/home', function () {
-    return view('home');
-});
+    Route::get('/admin/finish-goods-barcode', function () {
+        return view('pages.user.transaction.finishgoods.transactionInBarcode');
+    });
 
-//Finish Goods
+    Route::get('/admin/finish-goods-barcode-transaction', function () {
+        return view('pages.user.transaction.finishgoods.transactionInBarcode2');
+    });
 
-//Transaction
-Route::get('/admin/finish-goods-manual', function () {
-    return view('pages.user.transaction.finishgoods.transactionIn');
-});
+    Route::get('/admin/finish-goods-out', function () {
+        return view('pages.user.transaction.finishgoods.transactionOut');
+    });
 
-Route::get('/admin/finish-goods-barcode', function () {
-    return view('pages.user.transaction.finishgoods.transactionInBarcode');
-});
+    // Report
+    Route::get('/admin/finish-goods-reportIn', function () {
+        return view('pages.user.report.finishgoods.finishGoodsReportIn');
+    });
 
-Route::get('/admin/finish-goods-barcode-transaction', function () {
-    return view('pages.user.transaction.finishgoods.transactionInBarcode2');
-});
+    Route::get('/admin/finish-goods-reportOut', function () {
+        return view('pages.user.report.finishgoods.finishGoodsReportOut');
+    });
 
-Route::get('/admin/finish-goods-out', function () {
-    return view('pages.user.transaction.finishgoods.transactionOut');
-});
+    Route::get('/admin/finish-goods-reportSummary', function () {
+        return view('pages.user.report.finishgoods.finishGoodsReportSummary');
+    });
 
+    // Master Data
+    Route::get('/admin/product-type', function () {
+        return view('pages.user.master-data.product-type');
+    });
 
-//Report
-Route::get('/admin/finish-goods-reportIn', function () {
-    return view('pages.user.report.finishgoods.finishGoodsReportIn');
-});
+    // Dashboard
+    Route::get('/admin/finish-goods-dashboard', function () {
+        return view('pages.user.dashboard.dashboardFinishGoods');
+    });
 
-Route::get('/admin/finish-goods-reportOut', function () {
-    return view('pages.user.report.finishgoods.finishGoodsReportOut');
-});
-
-route::get('/admin/finish-goods-reportSummary', function () {
-    return view('pages.user.report.finishgoods.finishGoodsReportSummary');
-});
-
-//Master Data
-Route::get('/admin/product-type', function () {
-    return view('pages.user.master-data.product-type');
-});
-
-//Dashboard
-route::get('/admin/finish-goods-dashboard', function () {
-    return view('pages.user.dashboard.dashboardFinishGoods');
 });
 
 //Admin
@@ -84,9 +73,13 @@ Route::middleware(['auth','role:Admin'])->group(function(){
 
 });
 
+//Token management 
+Route::middleware(['auth','role:Admin'])->group(function(){
 
-Route::get('/admin/token-management', function () {
-    return view('pages.admin.tokenManagement');
+    Route::get('/admin/token-management', function () {
+        return view('pages.admin.tokenManagement');
+    });
+
 });
 
 
