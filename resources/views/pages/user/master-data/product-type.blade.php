@@ -31,6 +31,7 @@
                         <th>KP</th>
                         <th>Season</th>
                         <th>Style</th>
+                        <th>Destination</th>
                         <th>Action</th>
                     </tr>
                 </thead>

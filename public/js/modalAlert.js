@@ -387,10 +387,44 @@ $(document).ready(function () {
                     );
                 }
             });
-
         }
+    });
+});
 
+
+// ------------- Modal Alert Transaction Out -----------------
+$(document).ready(function () {
+
+    $(document).on('click', '#btn-transaction-out', async function (e) {
+        e.preventDefault();
+
+        const { value: formValues } = await Swal.fire({
+            title: 'Transaction Out',
+            html: `
+                <input id="swal-qtyGarment" class="swal2-input" placeholder="Qty Garment">
+                <input id="swal-qtyCarton" class="swal2-input" placeholder="Qty Carton">
+            `,
+            focusConfirm: false,
+            showCancelButton: true,
+            confirmButtonText: 'Confirm',
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#d33',
+            preConfirm: () => {
+                return {
+                    qtyGarment: document.getElementById('swal-qtyGarment').value,
+                    qtyCarton: document.getElementById('swal-qtyCarton').value
+                };
+            }
+        });
+
+        if (formValues) {
+            Swal.fire({
+                title: 'Updated!',
+                text: 'Successfully Out Carton.',
+                icon: 'success',
+                confirmButtonColor: '#28a745'
+            });
+        }
     });
 
 });
-
