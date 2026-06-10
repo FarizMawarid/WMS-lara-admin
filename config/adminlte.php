@@ -317,12 +317,6 @@ return [
             'type' => 'navbar-theme-toggle',
             'topnav_right' => true,
         ],
-        [
-            'text' => 'Logout',
-            'url' => '/login',
-            'icon' => 'fas fa-sign-out-alt',
-            'topnav_right' => true,
-        ],
 
         // Sidebar items:
         [
