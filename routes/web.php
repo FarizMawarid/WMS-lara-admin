@@ -5,6 +5,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RackController;
 use App\Http\Controllers\UserController;
 
+Auth::routes([
+    'register' => false,
+]);
+
+Route::get('/', function () {
+    return redirect('/login');
+});
+
 
 Route::middleware(['auth'])->group(function () {
 
