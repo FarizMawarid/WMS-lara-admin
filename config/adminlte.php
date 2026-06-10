@@ -408,6 +408,7 @@ return [
         [
             'header' => 'ADMINISTRATOR',
             'classes' => 'text-cyan text-bold',
+            'can' => 'admin',
         ],
         [
             'text' => 'User Management',
@@ -416,6 +417,8 @@ return [
             'icon_color' => 'cyan',
             'url' => 'admin/user-management',
             'use_gate' => true,
+            'can' => 'admin',
+            
         ],
         [
             'text' => 'Token Management',
@@ -423,6 +426,7 @@ return [
             'icon' => 'fas fa-key',
             'icon_color' => 'cyan',
             'url' => 'admin/token-management',
+            'can' => 'admin',
         ],
         [
             'text' => 'Rack Management',
@@ -430,6 +434,7 @@ return [
             'icon' => 'fas fa-warehouse',
             'icon_color' => 'cyan',
             'url' => 'admin/rack-management',
+            'can' => 'admin',
         ]
     ],
 

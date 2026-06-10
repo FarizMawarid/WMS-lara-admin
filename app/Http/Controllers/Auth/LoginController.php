@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -33,4 +34,13 @@ class LoginController extends Controller
     {
         return 'nik';
     }
+
+    protected function credentials(Request $request)
+{
+    return [
+        'factory' => $request->factory,
+        'nik' => $request->nik,
+        'password' => $request->password,
+    ];
+}
 }

@@ -23,7 +23,9 @@
 @section('auth_header', __('adminlte::adminlte.login_message'))
 
 @section('auth_body')
-    <form action="{{ $loginUrl }}" method="post">
+    <form action="{{ $loginUrl }}"
+        method="post"
+        autocomplete="off">
         @csrf
 
         {{-- Factory field --}}
@@ -32,8 +34,14 @@
                 <option selected disabled>
                     Select Factory
                 </option>
-                <option>ESGI Klego</option>
-                <option>ESGI Sambi</option>
+
+                <option value="ESGI Klego">
+                    ESGI Klego
+                </option>
+
+                <option value="ESGI Sambi">
+                    ESGI Sambi
+                </option>
             </select>
 
             <div class="input-group-append">
