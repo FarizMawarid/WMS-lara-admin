@@ -10,6 +10,9 @@ Auth::routes([
 ]);
 
 Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect('/admin/home');
+    }
     return redirect('/login');
 });
 
@@ -81,7 +84,7 @@ Route::middleware(['auth','role:Admin'])->group(function(){
 
 });
 
-//Token management 
+//Token management
 Route::middleware(['auth','role:Admin'])->group(function(){
 
     Route::get('/admin/token-management', function () {
