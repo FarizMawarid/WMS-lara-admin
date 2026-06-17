@@ -2,24 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
+// Emergency Super Admin Account
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        User::updateOrCreate(
+            ['nik' => '9999999999'],
+            [
+                'factory'   => 'ESGI Klego',
+                'role'      => 'Admin',
+                'nik'       => '142600600',
+                'department'=> 'Finish Goods 1',
+                'name'      => 'Super Administrator',
+                'email'     => 'arum600@gmail.com',
+                'password'  => Hash::make('Arumie601')
+            ]
+        );
     }
 }
