@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'WMS',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -64,9 +64,9 @@ return [
     */
 
     'logo' => '<b>WMS</b> ESGI',
-    'logo_img' => 'vendor/adminlte/dist/img/WMS-logo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
-    'logo_img_xl' => null,
+    'logo_img' => 'vendor/adminlte/dist/img/WMS-logo-2.png',
+    'logo_img_class' => 'brand-image',
+    'logo_img_xl' => false,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'Admin Logo',
 
@@ -86,11 +86,11 @@ return [
     'auth_logo' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/WMS-logo1.png',
+            'path' => 'vendor/adminlte/dist/img/WMS-logo.png',
             'alt' => 'Auth Logo',
             'class' => '',
-            'width' => 50,
-            'height' => 50,
+            'width' => 295,
+            'height' => 68,
         ],
     ],
 
@@ -113,11 +113,11 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/WMS-logo.png',
+            'path' => 'vendor/adminlte/dist/img/WMS-logo-2.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 200,
-            'height' => 200,
+            'height' => 150,
         ],
     ],
 
@@ -171,7 +171,7 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-primary',
+    'classes_auth_card' => '',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
     'classes_auth_footer' => '',
@@ -215,7 +215,7 @@ return [
     */
 
     'sidebar_mini' => 'lg',
-    'sidebar_collapse' => true,
+    'sidebar_collapse' => false,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -418,7 +418,7 @@ return [
             'url' => 'admin/user-management',
             'use_gate' => true,
             'can' => 'admin',
-            
+
         ],
         [
             'text' => 'Token Management',

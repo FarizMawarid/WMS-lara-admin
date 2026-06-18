@@ -6,17 +6,11 @@
 
 @php
     $loginUrl = View::getSection('login_url') ?? config('adminlte.login_url', 'login');
-    $registerUrl = View::getSection('register_url') ?? config('adminlte.register_url', 'register');
-    $passResetUrl = View::getSection('password_reset_url') ?? config('adminlte.password_reset_url', 'password/reset');
 
     if (config('adminlte.use_route_url', false)) {
         $loginUrl = $loginUrl ? route($loginUrl) : '';
-        $registerUrl = $registerUrl ? route($registerUrl) : '';
-        $passResetUrl = $passResetUrl ? route($passResetUrl) : '';
     } else {
         $loginUrl = $loginUrl ? url($loginUrl) : '';
-        $registerUrl = $registerUrl ? url($registerUrl) : '';
-        $passResetUrl = $passResetUrl ? url($passResetUrl) : '';
     }
 @endphp
 
@@ -51,7 +45,7 @@
             </div>
         </div>
 
-        {{-- Email field --}}
+        {{-- NIK field --}}
         <div class="input-group mb-3">
             <input type="number" name="nik" class="form-control" placeholder="NIK">
 

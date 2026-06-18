@@ -1,8 +1,8 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'WMS')
 
-@section('content')
+@section('content_body')
 <main class="app-main" id="main" tabindex="1">
     <!-- Welcome Dashboard Section -->
     <div class="app-content-header">

@@ -35,8 +35,8 @@
         Version: {{ config('app.version', '1.0.0') }}
     </div>
     <strong>
-        <a href="{{ config('app.company_url', '#') }}">
-            {{ config('app.company_name', 'My company') }}
+        <a href="{{ config('app.company_url', 'http://one.panbrothers.co.id/') }}">
+            {{ config('app.company_name', 'Eco Smart Garment Indonesia') }}
         </a>
     </strong>
 @stop
