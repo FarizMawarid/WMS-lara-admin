@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.app')  <!-- di app.blade.php -->
 
 @section('title', 'WMS')
 

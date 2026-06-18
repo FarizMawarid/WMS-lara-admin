@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.app')  <!-- di app.blade.php -->
 @section('meta_tags')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop
