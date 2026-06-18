@@ -6,7 +6,7 @@
     <h1>Product Type | Finish Goods</h1>
 @stop
 
-@section('content')
+@section('content_body')
 <div class="col-lg-12">
     <div class="card card-info card-outline mb-4">
         <div class="card-header">

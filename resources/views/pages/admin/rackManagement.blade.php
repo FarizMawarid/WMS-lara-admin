@@ -9,7 +9,7 @@
     <h1>Rack Management | Admin</h1>
 @stop
 
-@section('content')
+@section('content_body')
 <div class="col-lg-12">
     <div class="card card-info card-outline">
         <div class="card-header">
@@ -33,7 +33,7 @@
                         <label class="form-label">
                             Factory :
                         </label>
-                        <select name="factory" class="form-control">
+                        <select name="factory" class="form-select select2" required>
                             <option selected disabled>
                                 Select Factory
                             </option>
@@ -48,7 +48,7 @@
                         <label class="form-label">
                             Department :
                         </label>
-                        <select name="department" class="form-control">
+                        <select name="department" class="form-select select2">
                             <option selected disabled>
                                 Select Department
                             </option>
@@ -142,17 +142,7 @@
 </div>
 @stop
 
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/select2Addon.css') }}">
-@stop
-
-@section('js')
-<script
-    src="{{ asset('js/plugins.js') }}">
-</script>
-<script
-    src="{{ asset('js/modalAlert.js') }}">
-</script>
+@push('js')
 
 @if(session('success'))
 <script>
@@ -172,7 +162,7 @@
         title: 'Success',
         text: '{{ session('success') }}',
         confirmButtonColor: '#24c4dd'
-});
+    });
 </script>
 @endif
-@stop
+@endpush

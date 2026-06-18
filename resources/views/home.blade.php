@@ -7,13 +7,13 @@
     <!-- Welcome Dashboard Section -->
     <div class="app-content-header">
         <div class="container-fluid">
-            <div class="row mb-1 mt-4">
+            <div class="row mb-1">
                 <div class="col-12">
-                    <div class="card card-outline card-primary">
+                    <div class="card card-outline card-primary mt-4">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-sharp fa-solid fa-bullhorn fa-lg" style="color: #007bff;"></i>
-                                <span class="ms-2">Welcome to Home</span>
+                                <span class="ms-2">Welcome to Warehouse Management System</span>
                             </div>
                         </div>
                         <div class="card-body">
@@ -202,11 +202,3 @@
     </div>
 </main>
 @stop
-
-@push('css')
-<link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}">
-<link rel="stylesheet" href="{{ asset('css/solid.css') }}">
-<link rel="stylesheet" href="{{ asset('css/regular.css') }}">
-<link rel="stylesheet" href="{{ asset('css/light.css') }}">
-<link rel="stylesheet" href="{{ asset('css/duotone.css') }}">
-@endpush

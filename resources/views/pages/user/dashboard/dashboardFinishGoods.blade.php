@@ -6,7 +6,7 @@
     <h1>Finish Goods Dashboard</h1>
 @stop
 
-@section('content')
+@section('content_body')
 <main class="app-main" id="main" tabindex="1">
     <div class="app-content-header">
         <div class="container-fluid">

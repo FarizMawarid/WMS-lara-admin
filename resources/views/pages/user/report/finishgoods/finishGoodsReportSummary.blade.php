@@ -6,7 +6,7 @@
     <h1>Report Summary | Finish Goods</h1>
 @stop
 
-@section('content')
+@section('content_body')
 <div class="col-lg-12">
     <div class="card card-info card-outline mb-4">
         <div class="card-header">
@@ -115,17 +115,4 @@
         </div>
     </div>
 </div>
-@stop
-
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/select2Addon.css') }}">
-@stop
-
-@section('js')
-<script
-    src="{{ asset('js/plugins.js') }}">
-</script>
-<script
-    src="{{ asset('js/modalAlert.js') }}">
-</script>
 @stop
