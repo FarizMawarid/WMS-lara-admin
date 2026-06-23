@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RackController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductTypeController;
 
 Auth::routes([
     'register' => false,
@@ -63,6 +64,27 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/finish-goods-dashboard', function () {
         return view('pages.user.dashboard.dashboardFinishGoods');
     });
+
+    //Product type
+    Route::get(
+    '/admin/product-type',
+    [ProductTypeController::class,'index']
+    );
+
+    Route::post(
+    '/admin/product-type',
+    [ProductTypeController::class,'store']
+    );
+
+    Route::put(
+    '/admin/product-type/{id}',
+    [ProductTypeController::class,'update']
+    );
+
+    Route::delete(
+    '/admin/product-type/{id}',
+    [ProductTypeController::class,'destroy']
+    );
 
 });
 

@@ -35,10 +35,68 @@
                         <th>Action</th>
                     </tr>
                 </thead>
+
+                <tbody>
+
+                    @foreach ($products as $product)
+
+                    <tr>
+                        <td>{{ $product->po }}</td>
+                        <td>{{ $product->kp }}</td>
+                        <td>{{ $product->season }}</td>
+                        <td>{{ $product->style }}</td>
+                        <td>{{ $product->destination }}</td>
+
+                        <td>
+
+                          <button
+                                class="btn btn-primary btn-sm btn-edit-product"
+                                data-id="{{ $product->id }}"
+                                data-po="{{ $product->po }}"
+                                data-kp="{{ $product->kp }}"
+                                data-season="{{ $product->season }}"
+                                data-style="{{ $product->style }}"
+                                data-destination="{{ $product->destination }}">
+                                Edit
+                            </button>  
+                        <form
+                            action="/admin/product-type/{{ $product->id }}"
+                            method="POST"
+                            style="display:inline">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button
+                                type="submit"
+                                class="btn btn-danger btn-sm btn-delete-product">
+                                Delete
+                            </button>
+
+                        </form>
+                    </td>
+                </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
 </div>
+<form
+    id="form-add-product-type"
+    action="/admin/product-type"
+    method="POST"
+    style="display:none">
+
+    @csrf
+
+    <input type="hidden" name="po" id="po">
+    <input type="hidden" name="kp" id="kp">
+    <input type="hidden" name="season" id="season">
+    <input type="hidden" name="style" id="style">
+    <input type="hidden" name="destination" id="destination">
+
+</form>
 @stop
 
 @section('css')

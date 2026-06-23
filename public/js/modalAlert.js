@@ -316,6 +316,7 @@ $(document).ready(function () {
                 <input id="swal-KP" class="swal2-input" placeholder="KP">
                 <input id="swal-Season" class="swal2-input" placeholder="Season">
                 <input id="swal-Style" class="swal2-input" placeholder="Style">
+                <input id="swal-Destination" class="swal2-input" placeholder="Destination">
             `,
 
             focusConfirm: false,
@@ -328,17 +329,21 @@ $(document).ready(function () {
                     PO: document.getElementById('swal-PO').value,
                     KP: document.getElementById('swal-KP').value,
                     Season: document.getElementById('swal-Season').value,
-                    Style: document.getElementById('swal-Style').value
+                    Style: document.getElementById('swal-Style').value,
+                    Destination: document.getElementById('swal-Destination').value
                 };
             }
         });
-        if (formValues) {
-            Swal.fire({
-                title: 'Updated!',
-                text: `Product Type has been updated.`,
-                icon: 'success',
-                confirmButtonColor: '#28a745'
-            });
+        
+       if (formValues) {
+
+            $('#po').val(formValues.PO);
+            $('#kp').val(formValues.KP);
+            $('#season').val(formValues.Season);
+            $('#style').val(formValues.Style);
+            $('#destination').val(formValues.Destination);
+
+            $('#form-add-product-type').submit();
         }
     });
     // Modal import excel start here
