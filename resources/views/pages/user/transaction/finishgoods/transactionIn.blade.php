@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.app')  <!-- di app.blade.php -->
 
 @section('title', 'WMS')
 
@@ -6,7 +6,7 @@
     <h1>Transaction In | Finish Goods</h1>
 @stop
 
-@section('content')
+@section('content_body')
 <div class="col-lg-12">
     <div class="card card-info card-outline mb-4">
         <div class="card-header">
@@ -100,16 +100,4 @@
         </form>
     </div>
 </div>
-@stop
-
-
-@section('css')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"/>
-<link rel="stylesheet" href="{{ asset('css/select2Addon.css') }}">
-@stop
-
-@section('js')
-<script
-    src="{{ asset('js/index.js') }}">
-</script>
 @stop

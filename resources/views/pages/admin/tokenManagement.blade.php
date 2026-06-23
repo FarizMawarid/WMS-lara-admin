@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.app')  <!-- di app.blade.php -->
 
 @section('title', 'WMS')
 
@@ -6,7 +6,7 @@
     <h1>Token Management | Admin</h1>
 @stop
 
-@section('content')
+@section('content_body')
 <div class="col-lg-12">
     <div class="card card-info card-outline">
         <div class="card-header">
@@ -108,18 +108,4 @@
         </div>
     </div>
 </div>
-@stop
-
-
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/select2Addon.css') }}">
-@stop
-
-@section('js')
-<script
-    src="{{ asset('js/plugins.js') }}">
-</script>
-<script
-    src="{{ asset('js/modalAlert.js') }}">
-</script>
 @stop

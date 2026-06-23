@@ -29,7 +29,6 @@
 
         {{-- Logo --}}
         <div class="{{ $authType }}-logo">
-            <a href="{{ $dashboardUrl }}">
 
                 {{-- Logo Image --}}
                 @if (config('adminlte.auth_logo.enabled', false))
@@ -48,11 +47,6 @@
                     <img src="{{ asset(config('adminlte.logo_img')) }}"
                          alt="{{ config('adminlte.logo_img_alt') }}" height="50">
                 @endif
-
-                {{-- Logo Label --}}
-                {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
-
-            </a>
         </div>
 
         {{-- Card Box --}}
