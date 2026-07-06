@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductType extends Model
+class FinishGoodsTransaction extends Model
 {
     protected $fillable = [
         'po',
-        'kp',
-        'season',
         'style',
         'destination',
+        'qty_carton',
+        'qty_garment',
+        'rack_code',
+        'action_type',
     ];
 }

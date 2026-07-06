@@ -1,4 +1,4 @@
-@extends('layouts.app')  <!-- di app.blade.php -->
+@extends('layouts.app')
 
 @section('title', 'WMS')
 
@@ -14,90 +14,66 @@
                 Carton Information
             </div>
         </div>
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" method="POST" action="/admin/finish-goods-manual" novalidate>
+            @csrf
             <div class="card-body">
                 <div class="row g-3">
                     <div class="col-md-2">
-                        <label class="form-label">
-                            PO :
-                        </label>
-                        <select class="form-select select2" required>
-                            <option selected disabled>
-                                Select PO
-                            </option>
-                            <option>PO-001</option>
-                            <option>PO-002</option>
-                            <option>PO-003</option>
+                        <label class="form-label">PO :</label>
+                        <select name="po" id="po" class="form-select select2" required>
+                            <option value="" selected disabled>Select PO</option>
+                            @foreach($productTypes as $productType)
+                                <option value="{{ $productType->po }}" data-style="{{ $productType->style }}" data-destination="{{ $productType->destination }}">{{ $productType->po }}</option>
+                            @endforeach
                         </select>
-                        <div class="invalid-feedback">
-                            Please select PO.
-                        </div>
+                        <div class="invalid-feedback">Please select PO.</div>
                     </div>
                     <div class="col-md-2">
-                        <label class="form-label">
-                            Style :
-                        </label>
-                        <select class="form-select select2" disabled>
-                            <option selected disabled>
-                                Select Style
-                            </option>
-                            <option>Style A</option>
-                            <option>Style B</option>
+                        <label class="form-label">Style :</label>
+                        <input type="text" name="style" id="style" class="form-control" readonly required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Destination :</label>
+                        <input type="text" name="destination" id="destination" class="form-control" readonly required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Quantity Carton :</label>
+                        <input type="number" name="qty_carton" class="form-control" min="1" required>
+                        <div class="invalid-feedback">Please input quantity carton</div>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Quantity Garment :</label>
+                        <input type="number" name="qty_garment" class="form-control" min="1" required>
+                        <div class="invalid-feedback">Please input quantity garment</div>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Rack :</label>
+                        <select name="rack_code" class="form-select select2" required>
+                            <option value="" selected disabled>Select Rack</option>
+                            @foreach($racks as $rack)
+                                <option value="{{ $rack->rack_code }}">{{ $rack->rack_code }}</option>
+                            @endforeach
                         </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">
-                            Destination :
-                        </label>
-                        <select class="form-select select2" disabled>
-                            <option selected disabled>
-                                Select Destination
-                            </option>
-                            <option>Destination A</option>
-                            <option>Destination B</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">
-                            Quantity Carton :
-                        </label>
-                        <input type="number" class="form-control" required>
-                        <div class="invalid-feedback">
-                            Please input quantity carton
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">
-                            Quantity Garment :
-                        </label>
-                        <input type="number" class="form-control" required>
-                        <div class="invalid-feedback">
-                            Please input quantity garment
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">
-                            Rack :
-                        </label>
-                        <select class="form-select select2" required>
-                            <option selected disabled>
-                                Select Rack
-                            </option>
-                            <option>Rack A</option>
-                            <option>Rack B</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select rack
-                        </div>
+                        <div class="invalid-feedback">Please select rack</div>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success" type="submit">
-                    Submit
-                </button>
+                <button class="btn btn-success" type="submit">Submit</button>
             </div>
         </form>
     </div>
 </div>
 @stop
+
+@push('js')
+<script>
+$(function () {
+    $('#po').on('change', function () {
+        const selected = $(this).find('option:selected');
+        $('#style').val(selected.data('style') || '');
+        $('#destination').val(selected.data('destination') || '');
+    });
+});
+</script>
+@endpush

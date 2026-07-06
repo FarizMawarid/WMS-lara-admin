@@ -346,56 +346,6 @@ $(document).ready(function () {
             $('#form-add-product-type').submit();
         }
     });
-    // Modal import excel start here
-    $('#btn-import-product-type').click(async function (e) {
-
-        e.preventDefault();
-
-        let form = $(this).closest('form');
-
-        const { value: file } = await Swal.fire({
-            title: 'Import File',
-            input: 'file',
-            inputAttributes: {
-                accept: '.xlsx,.xls,.csv',
-                'aria-label': 'Upload import file'
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Import',
-            confirmButtonColor: '#28a745',
-            cancelButtonColor: '#d33',
-        });
-
-        if (file) {
-
-            const formData = new FormData(form[0]);
-            formData.append('file', file);
-
-            $.ajax({
-                url: form.attr('action'),
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    Swal.fire(
-                        'Success',
-                        'File imported successfully',
-                        'success'
-                    );
-                },
-                error: function (xhr) {
-                    Swal.fire(
-                        'Error',
-                        'Failed to import file',
-                        'error'
-                    );
-                }
-            });
-        }
-    });
-});
-
 
 // ------------- Modal Alert Transaction Out -----------------
 $(document).ready(function () {
