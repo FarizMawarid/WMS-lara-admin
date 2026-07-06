@@ -400,7 +400,7 @@ return [
         ],
         [
             'text' => 'Dashboard',
-            'classes' => 'text-yellow text-bold',
+            'classes' => 'text-yellow',
             'icon' => 'fas fa-chart-bar',
             'icon_color' => 'warning',
             'url' => 'admin/finish-goods-dashboard',
@@ -412,7 +412,7 @@ return [
         ],
         [
             'text' => 'User Management',
-            'classes' => 'text-cyan text-bold',
+            'classes' => 'text-cyan',
             'icon' => 'fas fa-users-cog',
             'icon_color' => 'cyan',
             'url' => 'admin/user-management',
@@ -422,7 +422,7 @@ return [
         ],
         [
             'text' => 'Token Management',
-            'classes' => 'text-cyan text-bold',
+            'classes' => 'text-cyan',
             'icon' => 'fas fa-key',
             'icon_color' => 'cyan',
             'url' => 'admin/token-management',
@@ -430,7 +430,7 @@ return [
         ],
         [
             'text' => 'Rack Management',
-            'classes' => 'text-cyan text-bold',
+            'classes' => 'text-cyan',
             'icon' => 'fas fa-warehouse',
             'icon_color' => 'cyan',
             'url' => 'admin/rack-management',

@@ -58,7 +58,7 @@
                                 data-style="{{ $product->style }}"
                                 data-destination="{{ $product->destination }}">
                                 Edit
-                            </button>  
+                            </button>
                         <form
                             action="/admin/product-type/{{ $product->id }}"
                             method="POST"
@@ -82,37 +82,48 @@
         </div>
     </div>
 </div>
-<form
-    id="form-add-product-type"
-    action="/admin/product-type"
-    method="POST"
-    style="display:none">
+<div class="card card-primary" id="card-add-product-type" style="display:none">
+    <div class="card-header">
+        <h3 class="card-title">Add Product Type</h3>
+    </div>
+    <form
+        id="form-add-product-type"
+        action="/admin/product-type"
+        method="POST">
 
-    @csrf
+        @csrf
 
-    <input type="hidden" name="po" id="po">
-    <input type="hidden" name="kp" id="kp">
-    <input type="hidden" name="season" id="season">
-    <input type="hidden" name="style" id="style">
-    <input type="hidden" name="destination" id="destination">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="po">PO</label>
+                <input type="text" class="form-control" id="po" name="po" placeholder="Enter PO">
+            </div>
 
-</form>
-@stop
+            <div class="form-group">
+                <label for="kp">KP</label>
+                <input type="text" class="form-control" id="kp" name="kp" placeholder="Enter KP">
+            </div>
 
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/select2Addon.css') }}">
-<link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}">
-<link rel="stylesheet" href="{{ asset('css/solid.css') }}">
-<link rel="stylesheet" href="{{ asset('css/regular.css') }}">
-<link rel="stylesheet" href="{{ asset('css/light.css') }}">
-<link rel="stylesheet" href="{{ asset('css/duotone.css') }}">
-@stop
+            <div class="form-group">
+                <label for="season">Season</label>
+                <input type="text" class="form-control" id="season" name="season" placeholder="Enter Season">
+            </div>
 
-@section('js')
-<script
-    src="{{ asset('js/plugins.js') }}">
-</script>
-<script
-    src="{{ asset('js/modalAlert.js') }}">
-</script>
+            <div class="form-group">
+                <label for="style">Style</label>
+                <input type="text" class="form-control" id="style" name="style" placeholder="Enter Style">
+            </div>
+
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <input type="text" class="form-control" id="destination" name="destination" placeholder="Enter Destination">
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" id="btn-cancel-product-type">Cancel</button>
+        </div>
+    </form>
+</div>
 @stop
