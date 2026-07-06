@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductType;
+use App\Services\ProductTypeImportService;
 use Illuminate\Http\Request;
 
 class ProductTypeController extends Controller
 {
+    protected $importService;
+
+    public function __construct(ProductTypeImportService $importService)
+    {
+        $this->importService = $importService;
+    }
+
+    /**
+     * Menampilkan halaman Product Type
+     */
     public function index()
     {
         $products = ProductType::latest()->get();
@@ -17,6 +28,9 @@ class ProductTypeController extends Controller
         );
     }
 
+    /**
+     * Simpan Product Type
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -24,26 +38,110 @@ class ProductTypeController extends Controller
             'kp' => 'required',
             'season' => 'required',
             'style' => 'required',
-            'style' => 'required',
+            'destination' => 'required',
         ]);
 
-        ProductType::create($request->all());
+        ProductType::create([
+            'po' => $request->po,
+            'kp' => $request->kp,
+            'season' => $request->season,
+            'style' => $request->style,
+            'destination' => $request->destination,
+        ]);
 
-        return back()->with('success','Product Type berhasil ditambahkan');
+        return back()->with(
+            'success',
+            'Product Type berhasil ditambahkan.'
+        );
     }
 
-    public function update(Request $request,$id)
+    /**
+     * Update Product Type
+     */
+    public function update(Request $request, $id)
     {
-        ProductType::findOrFail($id)
-            ->update($request->all());
+        $request->validate([
+            'po' => 'required',
+            'kp' => 'required',
+            'season' => 'required',
+            'style' => 'required',
+            'destination' => 'required',
+        ]);
 
-        return back()->with('success','Product Type berhasil diupdate');
+        $product = ProductType::findOrFail($id);
+
+        $product->update([
+            'po' => $request->po,
+            'kp' => $request->kp,
+            'season' => $request->season,
+            'style' => $request->style,
+            'destination' => $request->destination,
+        ]);
+
+        return back()->with(
+            'success',
+            'Product Type berhasil diupdate.'
+        );
     }
 
+    /**
+     * Hapus Product Type
+     */
     public function destroy($id)
     {
         ProductType::findOrFail($id)->delete();
 
-        return back()->with('success','Product Type berhasil dihapus');
+        return back()->with(
+            'success',
+            'Product Type berhasil dihapus.'
+        );
+    }
+
+    /**
+     * Import CSV / Excel
+     */
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:csv,xlsx,xls|max:5120'
+        ]);
+
+        try {
+            $result = $this->importService->import(
+                $request->file('file')
+            );
+
+            return back()->with(
+                'success',
+                "Import berhasil. Insert : {$result['insert']} | Update : {$result['update']}"
+            );
+        } catch (\Exception $e) {
+            return back()->with(
+                'error',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function downloadTemplate()
+    {
+        $headers = [
+            'PO',
+            'KP',
+            'Season',
+            'Style',
+            'Destination',
+        ];
+
+        $callback = function () use ($headers) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, $headers);
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="product_type_template.csv"',
+        ]);
     }
 }

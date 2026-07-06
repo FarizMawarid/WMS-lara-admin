@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RackController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\FinishGoodsTransactionController;
 
 Auth::routes([
     'register' => false,
@@ -26,9 +27,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Transaction
-    Route::get('/admin/finish-goods-manual', function () {
-        return view('pages.user.transaction.finishgoods.transactionIn');
-    });
+    Route::get('/admin/finish-goods-manual', [FinishGoodsTransactionController::class, 'indexIn']);
+    Route::post('/admin/finish-goods-manual', [FinishGoodsTransactionController::class, 'storeIn']);
 
     Route::get('/admin/finish-goods-barcode', function () {
         return view('pages.user.transaction.finishgoods.transactionInBarcode');
@@ -38,9 +38,8 @@ Route::middleware(['auth'])->group(function () {
         return view('pages.user.transaction.finishgoods.transactionInBarcode2');
     });
 
-    Route::get('/admin/finish-goods-out', function () {
-        return view('pages.user.transaction.finishgoods.transactionOut');
-    });
+    Route::get('/admin/finish-goods-out', [FinishGoodsTransactionController::class, 'indexOut']);
+    Route::post('/admin/finish-goods-out', [FinishGoodsTransactionController::class, 'storeOut']);
 
     // Report
     Route::get('/admin/finish-goods-reportIn', function () {
@@ -75,6 +74,12 @@ Route::middleware(['auth'])->group(function () {
     '/admin/product-type',
     [ProductTypeController::class,'store']
     );
+
+    Route::post('/admin/product-type/import', [ProductTypeController::class, 'import'])
+    ->name('product-type.import');
+
+    Route::get('/admin/product-type/template', [ProductTypeController::class, 'downloadTemplate'])
+    ->name('product-type.template');
 
     Route::put(
     '/admin/product-type/{id}',
