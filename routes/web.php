@@ -42,22 +42,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/finish-goods-out', [FinishGoodsTransactionController::class, 'storeOut']);
 
     // Report
-    Route::get('/admin/finish-goods-reportIn', function () {
-        return view('pages.user.report.finishgoods.finishGoodsReportIn');
-    });
-
-    Route::get('/admin/finish-goods-reportOut', function () {
-        return view('pages.user.report.finishgoods.finishGoodsReportOut');
-    });
-
-    Route::get('/admin/finish-goods-reportSummary', function () {
-        return view('pages.user.report.finishgoods.finishGoodsReportSummary');
-    });
-
-    // Master Data
-    Route::get('/admin/product-type', function () {
-        return view('pages.user.master-data.product-type');
-    });
+    Route::get('/admin/finish-goods-reportIn', [FinishGoodsTransactionController::class, 'reportIn']);
+    Route::get('/admin/finish-goods-reportOut', [FinishGoodsTransactionController::class, 'reportOut']);
+    Route::get('/admin/finish-goods-reportSummary', [FinishGoodsTransactionController::class, 'reportSummary']);
 
     // Dashboard
     Route::get('/admin/finish-goods-dashboard', function () {

@@ -12,75 +12,44 @@
         <div class="card-header">
             <h3 class="card-title">Carton Information</h3>
             <div class="card-tools">
-                <button
-                    type="button"
-                    class="btn btn-tool"
-                    data-card-widget="collapse">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
                 </button>
             </div>
         </div>
+        <form method="GET" action="{{ url('/admin/finish-goods-reportIn') }}">
             <div class="card-body">
                 <div class="row g-3">
-                    {{-- FILTER --}}
                     <div class="col-md-2">
-                        <label class="form-label">Filter :</label>
-                        <select id="filterType" class="form-select select2" required>
-                            <option selected disabled>Select Filter</option>
-                            <option value="po">PO</option>
-                            <option value="date">Date</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select a filter.
-                        </div>
-                    </div>
-                    {{-- PO FILTER --}}
-                    <div class="col-md-2 filter-po">
                         <label class="form-label">PO :</label>
-                        <select class="form-select select2" required>
-                            <option selected disabled>Select PO</option>
-                            <option>PO-001</option>
-                            <option>PO-002</option>
-                            <option>PO-003</option>
+                        <select name="po" class="form-select select2">
+                            <option value="">All PO</option>
+                            @foreach($productTypes as $productType)
+                                <option value="{{ $productType->po }}" {{ request('po') === $productType->po ? 'selected' : '' }}>{{ $productType->po }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    {{-- STYLE --}}
-                    <div class="col-md-2 filter-po">
-                        <label class="form-label">Style :</label>
-                        <select class="form-select select2" disabled>
-                            <option selected disabled>Select Style</option>
-                        </select>
-                    </div>
-                    {{-- DESTINATION --}}
-                    <div class="col-md-2 filter-po">
-                        <label class="form-label">Destination :</label>
-                        <select class="form-select select2" disabled>
-                            <option selected disabled>Select Destination</option>
-                        </select>
-                    </div>
-                    {{-- DATE FILTER --}}
-                    <div class="col-md-2 filter-date d-none">
+                    <div class="col-md-2">
                         <label class="form-label">Start Date :</label>
-                        <input type="date" class="form-control">
+                        <input type="date" name="start_date" class="form-control" value="{{ request('start_date') }}">
                     </div>
-                    <div class="col-md-2 filter-date d-none">
+                    <div class="col-md-2">
                         <label class="form-label">Until Date :</label>
-                        <input type="date" class="form-control">
+                        <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
+                    </div>
+                    <div class="col-md-2 align-self-end">
+                        <button class="btn btn-info" type="submit">Find</button>
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
-                <button class="btn btn-info" type="submit">
-                    Find
-                </button>
-            </div>
+        </form>
     </div>
 </div>
 <div class="col-lg-12">
     <div class="card card-info card-outline mb-4">
         <div class="card-header">
             <div class="card-title">
-                Report Finish Goods Out
+                Report Finish Goods In
             </div>
         </div>
         <div class="card-body">
@@ -100,17 +69,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>2025-14-01</td>
-                            <td>Finish Goods 1</td>
-                            <td>PO-001</td>
-                            <td>Style A</td>
-                            <td>Destination A</td>
-                            <td>1000</td>
-                            <td>100</td>
-                            <td>Rack 1</td>
-                            <td>John Doe</td>
-                        </tr>
+                        @forelse($transactions as $transaction)
+                            <tr>
+                                <td>{{ $transaction->created_at->format('Y-m-d') }}</td>
+                                <td>Finish Goods</td>
+                                <td>{{ $transaction->po }}</td>
+                                <td>{{ $transaction->style }}</td>
+                                <td>{{ $transaction->destination }}</td>
+                                <td>{{ $transaction->qty_garment }}</td>
+                                <td>{{ $transaction->qty_carton }}</td>
+                                <td>{{ $transaction->rack_code }}</td>
+                                <td>-</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="9" class="text-center">Belum ada transaksi masuk.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -118,4 +93,3 @@
     </div>
 </div>
 @stop
-
