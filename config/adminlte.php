@@ -390,12 +390,6 @@ return [
                     'icon_color' => 'warning',
                     'shift' => 'ml-2',
                 ],
-                [
-                    'text' => 'Carton Type',
-                    'url' => '#',
-                    'icon_color' => 'warning',
-                    'shift' => 'ml-2',
-                ],
             ],
         ],
         [
