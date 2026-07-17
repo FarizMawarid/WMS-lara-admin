@@ -1,0 +1,324 @@
+@extends('layouts.app')  <!-- di app.blade.php -->
+
+@section('title', 'WMS - Finish Goods Dashboard')
+
+@section('content_header')
+    <h2 class="fw-bold mb-0">FINISHED GOODS-DASHBOARD</h2>
+@stop
+
+@section('content_body')
+<div class="app-content-header">
+    <div class="container-fluid">
+        <!-- Date Picker dan Info -->
+        <div class="row mb-1">
+            <div class="col-md-12">
+                <form action="{{ route('finish-goods-dashboard') }}" method="GET" class="d-inline">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <input type="date" name="date" class="form-control" id="datePicker" value="{{ $selectedDate }}" onchange="this.form.submit()">
+                            <small class="text-muted d-block mt-2" id="dateDisplay">
+                                {{ \Carbon\Carbon::parse($selectedDate)->format('l, d F') }}
+                            </small>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Info Cards Row -->
+        <div class="row g-3 mb-4">
+            <!-- Card 1: Total Karton -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="text-muted mb-2">Total Karton</h6>
+                        <h2 class="mb-1">{{ $totalKarton }} <span class="text-muted" style="font-size: 0.6em;">Karton</span></h2>
+                        <small class="text-danger"><i class="fas fa-arrow-up"></i> {{ $percentageChange }}% vs Yesterday</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Incoming Today -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="text-muted mb-2">Incoming Today</h6>
+                        <h2 class="mb-1">{{ $incomingToday }} <span class="text-muted" style="font-size: 0.6em;">Karton</span></h2>
+                        <small class="text-info"><i class="fas fa-cube"></i> {{ $incomingCount }} Transaction</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Outgoing Today -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="text-muted mb-2">Outgoing Today</h6>
+                        <h2 class="mb-1">{{ $outgoingToday }} <span class="text-muted" style="font-size: 0.6em;">Karton</span></h2>
+                        <small class="text-success"><i class="fas fa-cube"></i> {{ $outgoingCount }} Transaction</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layout Rack dan Rack Overview -->
+        <div class="row g-3 mb-4">
+            <!-- Layout Rack -->
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-0 pb-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Layout Rack</h5>
+                            <div class="input-group" style="width: 220px;">
+                                <input type="text" class="form-control" placeholder="Search rack..." id="rackSearch" style="font-size: 0.9em;">
+                                <button class="btn btn-sm btn-outline-secondary" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge bg-danger">Filled: {{ $filledRacks }}</span>
+                            <span class="badge bg-secondary">Available: {{ $emptyRacks }}</span>
+                        </div>
+                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-2" id="rackContainer">
+                            @foreach($rackStatus as $rack)
+                            <div class="col rack-item" data-rack="{{ $rack['rack_code'] }}">
+                                <div class="border rounded p-2 text-center rack-cell {{ $rack['status'] === 'filled' ? 'bg-light-danger' : 'bg-white' }}">
+                                    <h6 class="mb-1 fw-bold">{{ $rack['rack_code'] }}</h6>
+                                    <div class="small text-muted mb-1">PO: {{ $rack['po'] }}</div>
+                                    <div class="small text-muted">{{ $rack['status'] === 'filled' ? 'Filled' : 'Available' }}</div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rack Overview -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Rack Overview</h5>
+                        <small class="text-muted">{{ \Carbon\Carbon::parse($selectedDate)->translatedFormat('l, d F Y') }}</small>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <h3 class="mb-0">{{ $incomingToday }}</h3>
+                                <small class="text-muted">In Today</small>
+                            </div>
+                            <div class="col-6">
+                                <h3 class="mb-0">{{ $outgoingToday }}</h3>
+                                <small class="text-muted">Out Today</small>
+                            </div>
+                        </div>
+                        <div class="text-start small text-muted">
+                            <div><strong>Factory:</strong> {{ $factoryName }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Activity -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-0">
+                        <h5 class="mb-0">Live Activity</h5>
+                    </div>
+                    <div class="card-body p-2">
+                        <table class="table table-sm table-hover mb-0">
+                            <tbody>
+                                @foreach($liveActivity as $activity)
+                                <tr>
+                                    <td>
+                                        <small class="fw-bold">{{ $activity['rack_code'] }}</small>
+                                        <div><small class="text-muted">PO: {{ $activity['po'] }}</small></div>
+                                    </td>
+                                    <td class="text-end">
+                                        @if($activity['empty'])
+                                            <span class="badge bg-secondary">No Data</span>
+                                        @elseif($activity['action_type'] == 'in')
+                                            <span class="badge bg-success">In</span>
+                                        @else
+                                            <span class="badge bg-danger">Out</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Racks Summary -->
+        <div class="row g-3">
+            <!-- Summary Cards -->
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-0">
+                        <h5 class="mb-0">Racks Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <h3 class="text-danger mb-0">{{ $totalRacks }}</h3>
+                                    <small class="text-muted">Total Racks</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <h3 class="text-warning mb-0">{{ $emptyRacks }}</h3>
+                                    <small class="text-muted">Empty</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <h3 class="text-success mb-0">{{ $filledRacks }}</h3>
+                                    <small class="text-muted">Used</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pie Chart -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-0">
+                        <h5 class="mb-0">Utilization</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div style="position: relative; width: 150px; height: 150px; margin: 0 auto;">
+                            <canvas id="utilizationChart"></canvas>
+                        </div>
+                        <h4 class="mt-3 mb-0">{{ number_format($utilization, 1) }}%</h4>
+                        <small class="text-muted">Space Used</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
+
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Update date display
+    document.getElementById('datePicker').addEventListener('change', function() {
+        const date = new Date(this.value);
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const dateString = date.toLocaleDateString('en-US', options);
+        document.getElementById('dateDisplay').textContent = dateString;
+    });
+
+    // Search functionality for racks
+    document.getElementById('rackSearch').addEventListener('keyup', function() {
+        const searchValue = this.value.toLowerCase();
+        const rackItems = document.querySelectorAll('.rack-item');
+        
+        rackItems.forEach(item => {
+            const rackCode = item.getAttribute('data-rack').toLowerCase();
+            if (rackCode.includes(searchValue)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+
+    // Initialize pie chart
+    const ctx = document.getElementById('utilizationChart');
+    if (ctx) {
+        const utilization = {{ $utilization }};
+        const remaining = 100 - utilization;
+        
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Used', 'Available'],
+                datasets: [{
+                    data: [utilization, remaining],
+                    backgroundColor: ['#3b3b54', '#e0e0e0'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    }
+</script>
+@endpush
+
+@push('css')
+<style>
+    .card {
+        border-radius: 8px;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+    }
+
+    .progress {
+        background-color: #f0f0f0;
+        border-radius: 4px;
+    }
+
+    .input-group .form-control {
+        border-color: #dee2e6;
+        border-radius: 4px 0 0 4px;
+    }
+
+    .input-group .btn {
+        border-color: #dee2e6;
+        border-radius: 0 4px 4px 0;
+    }
+
+    h2 {
+        color: #2c3e50;
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.65rem;
+    }
+
+    table td {
+        padding: 0.75rem !important;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .fw-bold {
+        font-weight: 600;
+    }
+
+    .rack-item {
+        transition: opacity 0.3s ease;
+    }
+
+    .rack-cell {
+        min-height: 95px;
+        border-radius: 8px;
+    }
+
+    .bg-light-danger {
+        background-color: #fff5f5;
+    }
+</style>
+@endpush
+

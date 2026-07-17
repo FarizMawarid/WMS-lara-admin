@@ -47,9 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/finish-goods-reportSummary', [FinishGoodsTransactionController::class, 'reportSummary']);
 
     // Dashboard
-    Route::get('/admin/finish-goods-dashboard', function () {
-        return view('pages.user.dashboard.dashboardFinishGoods');
-    });
+    Route::get('/admin/finish-goods-dashboard', [FinishGoodsTransactionController::class, 'dashboard'])->name('finish-goods-dashboard');
 
     //Product type
     Route::get(
