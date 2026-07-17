@@ -85,7 +85,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="10" class="text-center">Belum ada ringkasan stok.</td>
+                                <td colspan="10" class="text-center">No Data Available in Table</td>
                             </tr>
                         @endforelse
                     </tbody>

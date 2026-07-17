@@ -83,7 +83,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9" class="text-center">Belum ada transaksi masuk.</td>
+                                <td colspan="9" class="text-center">No Data Available in Table</td>
                             </tr>
                         @endforelse
                     </tbody>

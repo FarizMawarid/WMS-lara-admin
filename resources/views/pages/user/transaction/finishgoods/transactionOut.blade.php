@@ -2,6 +2,8 @@
 
 @section('title', 'WMS')
 
+@section('plugins.Sweetalert2', true)
+
 @section('content_header')
     <h1>Transaction Out | Finish Goods</h1>
 @stop
@@ -64,6 +66,17 @@
 @stop
 
 @push('js')
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: @json(session('success')),
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#28a745'
+    });
+</script>
+@endif
 <script>
 $(function () {
     $('#po').on('change', function () {
