@@ -82,8 +82,11 @@ Route::middleware(['auth'])->group(function () {
 //User Management
 Route::middleware(['auth','role:Admin'])->group(function(){
 
-    Route::get('/admin/user-management',
-        [UserController::class,'index']);
+    Route::get('/admin/transaction-in-out', [FinishGoodsTransactionController::class, 'adminIndex'])->name('admin.transaction-log.index');
+    Route::post('/admin/transaction-in-out', [FinishGoodsTransactionController::class, 'adminStore'])->name('admin.transaction-log.store');
+    Route::get('/admin/transaction-in-out/{id}/edit', [FinishGoodsTransactionController::class, 'adminEdit'])->name('admin.transaction-log.edit');
+    Route::put('/admin/transaction-in-out/{id}', [FinishGoodsTransactionController::class, 'adminUpdate'])->name('admin.transaction-log.update');
+    Route::delete('/admin/transaction-in-out/{id}', [FinishGoodsTransactionController::class, 'adminDestroy'])->name('admin.transaction-log.destroy');
 
     Route::post('/admin/user-management',
         [UserController::class,'store']);

@@ -415,6 +415,14 @@ return [
 
         ],
         [
+            'text' => 'Transaction In Out',
+            'classes' => 'text-cyan',
+            'icon' => 'fas fa-history',
+            'icon_color' => 'cyan',
+            'url' => 'admin/transaction-in-out',
+            'can' => 'admin',
+        ],
+        [
             'text' => 'Token Management',
             'classes' => 'text-cyan',
             'icon' => 'fas fa-key',

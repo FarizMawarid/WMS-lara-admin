@@ -1,66 +1,64 @@
-@extends('layouts.app')  <!-- di app.blade.php -->
+@extends('layouts.app')
 
 @section('title', 'WMS - Finish Goods Dashboard')
 
 @section('content_header')
-    <h2 class="fw-bold mb-0">FINISHED GOODS-DASHBOARD</h2>
+    <h2 class="fw-bold mb-0">FINISHED GOODS DASHBOARD</h2>
 @stop
 
 @section('content_body')
+@php
+    $summaryCards = [
+        [
+            'title' => 'Total Karton',
+            'value' => $totalKarton,
+            'icon' => 'boxes',
+            'class' => 'accent-blue',
+            'footer' => '<i class="fas fa-arrow-up me-1"></i>' . $percentageChange . '% vs Yesterday',
+        ],
+        [
+            'title' => 'Incoming Today',
+            'value' => $incomingToday,
+            'icon' => 'sign-in-alt',
+            'class' => 'accent-green',
+            'footer' => '<i class="fas fa-cube me-1"></i>' . $incomingCount . ' Transaction',
+        ],
+        [
+            'title' => 'Outgoing Today',
+            'value' => $outgoingToday,
+            'icon' => 'sign-out-alt',
+            'class' => 'accent-orange',
+            'footer' => '<i class="fas fa-cube me-1"></i>' . $outgoingCount . ' Transaction',
+        ],
+    ];
+@endphp
+
 <div class="app-content-header dashboard-shell">
     <div class="container-fluid">
-
         <div class="row g-3 mb-3">
-            <div class="col-lg-3 col-md-6">
-                <div class="card dashboard-card accent-blue border-0 shadow-sm h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h6 class="text-white-50 mb-2">Total Karton</h6>
-                                <h2 class="mb-0 text-white">{{ $totalKarton }}</h2>
+            @foreach ($summaryCards as $card)
+                <div class="col-lg-3 col-md-6">
+                    <div class="card dashboard-card border-0 shadow-sm h-100 {{ $card['class'] }}">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="text-white-50 mb-2">{{ $card['title'] }}</h6>
+                                    <h2 class="mb-0 text-white">{{ $card['value'] }}</h2>
+                                </div>
+                                <i class="fas fa-{{ $card['icon'] }} fa-2x text-white-50"></i>
                             </div>
-                            <i class="fas fa-boxes fa-2x text-white-50"></i>
-                        </div>
-                        <small class="text-white-50"><i class="fas fa-arrow-up"></i> {{ $percentageChange }}% vs Yesterday</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="card dashboard-card accent-green border-0 shadow-sm h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h6 class="text-white-50 mb-2">Incoming Today</h6>
-                                <h2 class="mb-0 text-white">{{ $incomingToday }}</h2>
-                            </div>
-                            <i class="fas fa-sign-in-alt fa-2x text-white-50"></i>
-                        </div>
-                        <small class="text-white-50"><i class="fas fa-cube"></i> {{ $incomingCount }} Transaction</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="card dashboard-card accent-orange border-0 shadow-sm h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
-                            <div>
-                                <h6 class="text-white-50 mb-2">Outgoing Today</h6>
-                                <h2 class="mb-0 text-white">{{ $outgoingToday }}</h2>
-                                <small class="text-white-50"><i class="fas fa-cube"></i> {{ $outgoingCount }} Transaction</small>
-                            </div>
+                            <small class="text-white-50">{!! $card['footer'] !!}</small>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
 
             <div class="col-lg-3 col-md-6">
                 <div class="card dashboard-card accent-dark border-0 shadow-sm h-100">
                     <div class="card-body">
                         <div class="date-box">
                             <label class="small text-white-50 d-block mb-1">Date</label>
-                            <form action="{{ route('finish-goods-dashboard') }}" method="GET">
+                            <form action="{{ route('finish-goods-dashboard') }}" method="GET" class="d-flex flex-column gap-2">
                                 <input type="date" name="date" class="form-control form-control-sm" id="datePicker" value="{{ $selectedDate }}" onchange="this.form.submit()">
                             </form>
                             <small class="text-white-50 d-block mt-2" id="dateDisplay">
@@ -72,36 +70,51 @@
             </div>
         </div>
 
-        <div class="row g-3 mb-3">
+        <div class="row g-3">
             <div class="col-xl-8 col-lg-7">
                 <div class="card dashboard-panel border-0 shadow-sm h-100">
-                    <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center py-2">
-                        <h5 class="mb-0 fw-bold">Layout Rack</h5>
-                        <div class="input-group" style="width: 220px;">
-                            <input type="text" class="form-control form-control-sm" placeholder="Search PO" id="rackSearch" style="font-size: 0.9em;">
-                            <button class="btn btn-sm btn-outline-secondary" type="button">
-                                <i class="fas fa-search"></i>
-                            </button>
+                    <div class="card-header bg-white border-0 py-2">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <h5 class="mb-0 fw-bold">Layout Rack</h5>
+                            <div class="d-flex flex-wrap gap-2 align-items-center">
+                                <form method="GET" action="{{ route('finish-goods-dashboard') }}" class="d-flex gap-2 align-items-center">
+                                    <input type="hidden" name="date" value="{{ $selectedDate }}">
+                                    <select name="factory" class="form-select form-select-sm dashboard-select">
+                                        @foreach ($factoryOptions as $factoryOption)
+                                            <option value="{{ $factoryOption }}" {{ $selectedFactory === $factoryOption ? 'selected' : '' }}>{{ $factoryOption }}</option>
+                                        @endforeach
+                                    </select>
+                                    <button class="btn btn-sm btn-outline-secondary" type="submit">Go</button>
+                                </form>
+                                <div class="input-group dashboard-search">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Search PO" id="rackSearch">
+                                    <button class="btn btn-sm btn-outline-secondary" type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="card-body">
                         <div class="d-flex flex-wrap gap-2 mb-3">
                             <span class="badge badge-filled">Filled: {{ $filledRacks }}</span>
                             <span class="badge badge-available">Available: {{ $emptyRacks }}</span>
                             <span class="badge badge-factory">Factory: {{ $factoryName }}</span>
                         </div>
+
                         <div class="rack-grid" id="rackContainer">
-                            @foreach($rackStatus as $rack)
-                            <div class="rack-item" data-rack="{{ $rack['rack_code'] }}" data-po="{{ strtolower($rack['po']) }}">
-                                <div class="rack-cell {{ $rack['status'] === 'filled' ? 'rack-filled' : 'rack-available' }}">
-                                    <div class="rack-code fw-bold">{{ $rack['rack_code'] }}</div>
-                                    <div class="rack-po">PO: {{ $rack['po'] }}</div>
-                                    <div class="rack-carton">Carton: {{ $rack['cartons'] }}</div>
-                                    <div class="rack-status {{ $rack['status'] === 'filled' ? 'text-danger' : 'text-success' }}">
-                                        {{ $rack['status'] === 'filled' ? 'Filled' : 'Available' }}
+                            @foreach ($rackStatus as $rack)
+                                <div class="rack-item" data-rack="{{ $rack['rack_code'] }}" data-po="{{ strtolower($rack['po']) }}">
+                                    <div class="rack-cell {{ $rack['status'] === 'filled' ? 'rack-filled' : 'rack-available' }}">
+                                        <div class="rack-code fw-bold">{{ $rack['rack_code'] }}</div>
+                                        <div class="rack-po">PO: {{ $rack['po'] }}</div>
+                                        <div class="rack-carton">Carton: {{ $rack['cartons'] }}</div>
+                                        <div class="rack-status {{ $rack['status'] === 'filled' ? 'text-danger' : 'text-success' }}">
+                                            {{ $rack['status'] === 'filled' ? 'Filled' : 'Available' }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -114,40 +127,42 @@
                         <h5 class="mb-0 fw-bold">Live Activity</h5>
                     </div>
                     <div class="card-body p-2">
-                        <table class="table table-sm table-hover mb-0 align-middle">
-                            <thead>
-                                <tr>
-                                    <th class="text-muted">Time</th>
-                                    <th class="text-muted">Rack</th>
-                                    <th class="text-muted">Carton</th>
-                                    <th class="text-muted">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($liveActivity as $activity)
-                                <tr>
-                                    <td class="small fw-bold">{{ $activity['time'] }}</td>
-                                    <td class="small">{{ $activity['rack_code'] }}</td>
-                                    <td class="small">{{ $activity['qty_carton'] }}</td>
-                                    <td class="text-end">
-                                        @if($activity['empty'])
-                                            <span class="badge bg-secondary">No Data</span>
-                                        @elseif($activity['action_type'] == 'in')
-                                            <span class="badge bg-success">In</span>
-                                        @else
-                                            <span class="badge bg-danger">Out</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover mb-0 align-middle">
+                                <thead>
+                                    <tr>
+                                        <th class="text-muted">Time</th>
+                                        <th class="text-muted">Rack</th>
+                                        <th class="text-muted">Carton</th>
+                                        <th class="text-muted">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($liveActivity as $activity)
+                                        <tr>
+                                            <td class="small fw-bold">{{ $activity['time'] }}</td>
+                                            <td class="small">{{ $activity['rack_code'] }}</td>
+                                            <td class="small">{{ $activity['qty_carton'] }}</td>
+                                            <td class="text-end">
+                                                @if ($activity['empty'])
+                                                    <span class="badge bg-secondary">No Data</span>
+                                                @elseif ($activity['action_type'] == 'in')
+                                                    <span class="badge bg-success">In</span>
+                                                @else
+                                                    <span class="badge bg-danger">Out</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card dashboard-panel border-0 shadow-sm utilization-card">
                     <div class="card-body">
-                        <div class="row align-items-center">
+                        <div class="row align-items-center g-2">
                             <div class="col-7">
                                 <div class="row text-center g-2">
                                     <div class="col-4">
@@ -156,7 +171,7 @@
                                     </div>
                                     <div class="col-4">
                                         <h4 class="text-warning mb-1">{{ $emptyRacks }}</h4>
-                                        <small class="text-muted">Avail</small>
+                                        <small class="text-muted">Availeble</small>
                                     </div>
                                     <div class="col-4">
                                         <h4 class="text-success mb-1">{{ $filledRacks }}</h4>
@@ -165,7 +180,7 @@
                                 </div>
                             </div>
                             <div class="col-5 text-center">
-                                <div style="position: relative; width: 110px; height: 110px; margin: 0 auto;">
+                                <div class="utilization-chart-wrap">
                                     <canvas id="utilizationChart"></canvas>
                                 </div>
                                 <h4 class="mb-1 text-dark">{{ number_format($utilization, 1) }}%</h4>
@@ -178,7 +193,6 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 @push('js')
@@ -188,7 +202,7 @@
     const dateDisplay = document.getElementById('dateDisplay');
 
     if (datePicker && dateDisplay) {
-        datePicker.addEventListener('change', function() {
+        datePicker.addEventListener('change', function () {
             const date = new Date(this.value);
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             dateDisplay.textContent = date.toLocaleDateString('en-US', options);
@@ -197,7 +211,7 @@
 
     const rackSearch = document.getElementById('rackSearch');
     if (rackSearch) {
-        rackSearch.addEventListener('keyup', function() {
+        rackSearch.addEventListener('keyup', function () {
             const searchValue = this.value.toLowerCase();
             const rackItems = document.querySelectorAll('.rack-item');
 
@@ -235,7 +249,7 @@
         });
     }
 
-    setInterval(function() {
+    setInterval(function () {
         location.reload();
     }, 120000);
 </script>
@@ -285,6 +299,14 @@
         border-radius: 16px;
     }
 
+    .dashboard-select {
+        min-width: 170px;
+    }
+
+    .dashboard-search {
+        width: 220px;
+    }
+
     .activity-card {
         max-height: 320px;
         overflow: hidden;
@@ -312,6 +334,13 @@
         padding: 0.75rem 0.8rem;
     }
 
+    .utilization-chart-wrap {
+        position: relative;
+        width: 110px;
+        height: 110px;
+        margin: 0 auto;
+    }
+
     .date-box {
         min-width: 210px;
     }
@@ -322,7 +351,7 @@
 
     .rack-grid {
         display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
         gap: 0.55rem;
     }
 
@@ -335,7 +364,7 @@
         border-radius: 10px;
         padding: 0.45rem;
         border: 1px solid transparent;
-        box-shadow: inset 0 1px 2px rgba(255,255,255,0.7);
+        box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7);
         text-align: center;
         display: flex;
         flex-direction: column;

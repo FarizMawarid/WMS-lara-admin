@@ -145,17 +145,91 @@ class FinishGoodsTransactionController extends Controller
         ));
     }
 
+    public function adminIndex()
+    {
+        $transactions = FinishGoodsTransaction::orderBy('created_at', 'desc')->get();
+        $productTypes = ProductType::orderBy('po')->get();
+        $racks = Rack::orderBy('rack_code')->get();
+        $editTransaction = null;
+
+        return view('pages.admin.transactionInOutLog', compact('transactions', 'productTypes', 'racks', 'editTransaction'));
+    }
+
+    public function adminStore(Request $request)
+    {
+        $validated = $request->validate([
+            'po' => 'required|string',
+            'style' => 'required|string',
+            'destination' => 'required|string',
+            'qty_carton' => 'required|integer|min:1',
+            'qty_garment' => 'required|integer|min:1',
+            'rack_code' => 'required|string',
+            'action_type' => 'required|in:in,out',
+        ]);
+
+        FinishGoodsTransaction::create($validated);
+
+        return redirect()->route('admin.transaction-log.index')->with('success', 'Transaction berhasil disimpan.');
+    }
+
+    public function adminEdit($id)
+    {
+        $transactions = FinishGoodsTransaction::orderBy('created_at', 'desc')->get();
+        $productTypes = ProductType::orderBy('po')->get();
+        $racks = Rack::orderBy('rack_code')->get();
+        $editTransaction = FinishGoodsTransaction::findOrFail($id);
+
+        return view('pages.admin.transactionInOutLog', compact('transactions', 'productTypes', 'racks', 'editTransaction'));
+    }
+
+    public function adminUpdate(Request $request, $id)
+    {
+        $transaction = FinishGoodsTransaction::findOrFail($id);
+        $validated = $request->validate([
+            'po' => 'required|string',
+            'style' => 'required|string',
+            'destination' => 'required|string',
+            'qty_carton' => 'required|integer|min:1',
+            'qty_garment' => 'required|integer|min:1',
+            'rack_code' => 'required|string',
+            'action_type' => 'required|in:in,out',
+        ]);
+
+        $transaction->update($validated);
+
+        return redirect()->route('admin.transaction-log.index')->with('success', 'Transaction berhasil diperbarui.');
+    }
+
+    public function adminDestroy($id)
+    {
+        $transaction = FinishGoodsTransaction::findOrFail($id);
+        $transaction->delete();
+
+        return redirect()->route('admin.transaction-log.index')->with('success', 'Transaction berhasil dihapus.');
+    }
+
     public function dashboard(Request $request)
     {
         $selectedDate = $request->filled('date') ? $request->date : now()->toDateString();
         $user = Auth::user();
-        $factoryName = $user?->factory ?? 'ALL';
+        $factoryOptions = ['Finish Goods', 'Finish Goods 1'];
+        $userFactory = $user?->factory;
 
-        $factoryRacks = Rack::where('factory', $factoryName)->pluck('rack_code')->all();
+        if ($userFactory && ! in_array($userFactory, $factoryOptions, true)) {
+            $factoryOptions[] = $userFactory;
+        }
+
+        $selectedFactory = $request->filled('factory') && in_array($request->factory, $factoryOptions, true)
+            ? $request->factory
+            : ($userFactory ?? $factoryOptions[0]);
+
+        $factoryName = $selectedFactory;
+        $factoryRacks = Rack::where('factory', $factoryName)->orderBy('rack_code')->get();
         $baseQuery = FinishGoodsTransaction::query();
+        $rackCodes = $factoryRacks->pluck('rack_code')->all();
 
-        if (!empty($factoryRacks)) {
-            $baseQuery->whereIn('rack_code', $factoryRacks);
+        if (!empty($rackCodes)) {
+            $baseQuery->whereIn('rack_code', $rackCodes);
         } else {
             $baseQuery->whereRaw('1 = 0');
         }
@@ -177,18 +251,11 @@ class FinishGoodsTransactionController extends Controller
             ? round((($incomingToday - $incomingYesterday) / $incomingYesterday) * 100, 1)
             : 0;
 
-        $rackPositions = [];
-        for ($row = 'A'; $row <= 'E'; $row++) {
-            for ($number = 1; $number <= 5; $number++) {
-                $rackPositions[] = $row . $number;
-            }
-        }
-
         $rackStatus = [];
         $filledRacks = 0;
 
-        foreach ($rackPositions as $rackCode) {
-            $rackTransactions = (clone $dateQuery)->where('rack_code', $rackCode)->get();
+        foreach ($factoryRacks as $rack) {
+            $rackTransactions = (clone $dateQuery)->where('rack_code', $rack->rack_code)->get();
             $latestTransaction = $rackTransactions->sortByDesc('created_at')->first();
             $cartons = (int) $rackTransactions->sum('qty_carton');
 
@@ -197,7 +264,7 @@ class FinishGoodsTransactionController extends Controller
             }
 
             $rackStatus[] = [
-                'rack_code' => $rackCode,
+                'rack_code' => $rack->rack_code,
                 'cartons' => $cartons,
                 'capacity' => 10,
                 'filled' => $cartons > 0 ? 100 : 0,
@@ -249,7 +316,9 @@ class FinishGoodsTransactionController extends Controller
             'utilization',
             'liveActivity',
             'selectedDate',
-            'factoryName'
+            'factoryName',
+            'selectedFactory',
+            'factoryOptions'
         ));
     }
 }
