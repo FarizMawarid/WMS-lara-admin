@@ -66,6 +66,7 @@
                             <th>Qty Carton In</th>
                             <th>Rack</th>
                             <th>PIC</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,6 +81,7 @@
                                 <td>{{ $transaction->qty_carton }}</td>
                                 <td>{{ $transaction->rack_code }}</td>
                                 <td>-</td>
+                                <td><button class="btn btn-sm btn-primary">Move</button></td>
                             </tr>
                         @empty
                             <tr>
