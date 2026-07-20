@@ -77,14 +77,14 @@
                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                             <h5 class="mb-0 fw-bold">Layout Rack</h5>
                             <div class="d-flex flex-wrap gap-2 align-items-center">
-                                <form method="GET" action="{{ route('finish-goods-dashboard') }}" class="d-flex gap-2 align-items-center">
+                                <form method="GET" action="{{ route('finish-goods-dashboard') }}" class="d-flex gap-2 mr-2 align-items-center">
                                     <input type="hidden" name="date" value="{{ $selectedDate }}">
-                                    <select name="factory" class="form-select form-select-sm dashboard-select">
+                                    <select name="factory" class="form-control form-select-sm dashboard-select">
                                         @foreach ($factoryOptions as $factoryOption)
                                             <option value="{{ $factoryOption }}" {{ $selectedFactory === $factoryOption ? 'selected' : '' }}>{{ $factoryOption }}</option>
                                         @endforeach
                                     </select>
-                                    <button class="btn btn-sm btn-outline-secondary" type="submit">Go</button>
+                                    <button class="btn btn-sm btn-outline-secondary ml-2" type="submit">Go</button>
                                 </form>
                                 <div class="input-group dashboard-search">
                                     <input type="text" class="form-control form-control-sm" placeholder="Search PO" id="rackSearch">

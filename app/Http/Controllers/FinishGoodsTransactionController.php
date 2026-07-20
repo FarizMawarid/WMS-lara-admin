@@ -244,14 +244,14 @@ class FinishGoodsTransactionController extends Controller
         $selectedDate = $request->filled('date') ? $request->date : now()->toDateString();
         $user = Auth::user();
         $factoryOptions = ['Finish Goods 1', 'Finish Goods 2'];
-        $userFactory = $user?->factory;
+        $userDepartment = $user?->department;
 
         $selectedFactory = $request->filled('factory') && in_array($request->factory, $factoryOptions, true)
             ? $request->factory
-            : ($userFactory ?? $factoryOptions[0]);
+            : ($userDepartment ?? $factoryOptions[0]);
 
         $factoryName = $selectedFactory;
-        $factoryRacks = Rack::where('factory', $factoryName)->orderBy('rack_code')->get();
+        $factoryRacks = Rack::where('department', $factoryName)->orderBy('rack_code')->get();
         $baseQuery = FinishGoodsTransaction::query();
         $rackCodes = $factoryRacks->pluck('rack_code')->all();
 

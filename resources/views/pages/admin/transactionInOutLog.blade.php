@@ -22,7 +22,7 @@
                     <div class="row g-3">
                         <div class="col-md-2">
                             <label class="form-label">PO</label>
-                            <select name="po" class="form-select" required>
+                            <select name="po" class="form-control" required>
                                 <option value="">-- Select PO --</option>
                                 @foreach($productTypes as $productType)
                                     <option value="{{ $productType->po }}" {{ ($editTransaction?->po ?? old('po')) == $productType->po ? 'selected' : '' }}>{{ $productType->po }}</option>
@@ -37,17 +37,17 @@
                             <label class="form-label">Destination</label>
                             <input type="text" name="destination" class="form-control" value="{{ $editTransaction?->destination ?? old('destination') }}" required>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <label class="form-label">Qty Carton</label>
                             <input type="number" name="qty_carton" class="form-control" value="{{ $editTransaction?->qty_carton ?? old('qty_carton') }}" required>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <label class="form-label">Qty Garment</label>
                             <input type="number" name="qty_garment" class="form-control" value="{{ $editTransaction?->qty_garment ?? old('qty_garment') }}" required>
                         </div>
                         <div class="col-md-2">
                             <label class="form-label">Rack</label>
-                            <select name="rack_code" class="form-select" required>
+                            <select name="rack_code" class="form-control" required>
                                 <option value="">-- Select Rack --</option>
                                 @foreach($racks as $rack)
                                     <option value="{{ $rack->rack_code }}" {{ ($editTransaction?->rack_code ?? old('rack_code')) == $rack->rack_code ? 'selected' : '' }}>{{ $rack->rack_code }} ({{ $rack->factory }})</option>
@@ -56,12 +56,12 @@
                         </div>
                         <div class="col-md-2">
                             <label class="form-label">Type</label>
-                            <select name="action_type" class="form-select" required>
+                            <select name="action_type" class="form-control" required>
                                 <option value="in" {{ ($editTransaction?->action_type ?? old('action_type')) == 'in' ? 'selected' : '' }}>In</option>
                                 <option value="out" {{ ($editTransaction?->action_type ?? old('action_type')) == 'out' ? 'selected' : '' }}>Out</option>
                             </select>
                         </div>
-                        <div class="col-md-2 align-self-end">
+                        <div class="col-md-2 align-self-end mt-2">
                             <button class="btn btn-info" type="submit">{{ $editTransaction ? 'Update' : 'Save' }}</button>
                             @if($editTransaction)
                                 <a href="{{ route('admin.transaction-log.index') }}" class="btn btn-secondary">Cancel</a>
