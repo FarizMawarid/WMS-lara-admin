@@ -41,7 +41,20 @@ class FinishGoodsTransactionController extends Controller
         $productTypes = ProductType::orderBy('po')->get();
         $racks = Rack::orderBy('rack_code')->get();
 
-        return view('pages.user.transaction.finishgoods.transactionOut', compact('productTypes', 'racks'));
+        // Hitung sisa stok per PO + Rack (IN - OUT)
+        $rackStock = FinishGoodsTransaction::select('po', 'rack_code')
+            ->selectRaw('SUM(CASE WHEN action_type = "in" THEN qty_carton ELSE -qty_carton END) as remaining_carton')
+            ->selectRaw('SUM(CASE WHEN action_type = "in" THEN qty_garment ELSE -qty_garment END) as remaining_garment')
+            ->groupBy('po', 'rack_code')
+            ->havingRaw('SUM(CASE WHEN action_type = "in" THEN qty_carton ELSE -qty_carton END) > 0')
+            ->get()
+            ->groupBy('po');
+
+        return view('pages.user.transaction.finishgoods.transactionOut', compact(
+            'productTypes',
+            'racks',
+            'rackStock'
+        ));
     }
 
     public function storeOut(Request $request)
@@ -54,6 +67,24 @@ class FinishGoodsTransactionController extends Controller
             'qty_garment' => 'required|integer|min:1',
             'rack_code' => 'required|string',
         ]);
+
+        // Hitung sisa stok untuk PO + Rack yang dipilih (IN - OUT)
+        $remaining = FinishGoodsTransaction::where('po', $validated['po'])
+            ->where('rack_code', $validated['rack_code'])
+            ->selectRaw('
+                SUM(CASE WHEN action_type = "in" THEN qty_carton ELSE -qty_carton END) as remaining_carton,
+                SUM(CASE WHEN action_type = "in" THEN qty_garment ELSE -qty_garment END) as remaining_garment
+            ')
+            ->first();
+
+        $remainingCarton = (int) ($remaining->remaining_carton ?? 0);
+        $remainingGarment = (int) ($remaining->remaining_garment ?? 0);
+
+        if ($validated['qty_carton'] > $remainingCarton || $validated['qty_garment'] > $remainingGarment) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', "Jumlah melebihi stok tersedia di rack {$validated['rack_code']}. Sisa stok: {$remainingCarton} carton / {$remainingGarment} garment.");
+        }
 
         FinishGoodsTransaction::create(array_merge($validated, ['action_type' => 'out']));
 
@@ -212,12 +243,8 @@ class FinishGoodsTransactionController extends Controller
     {
         $selectedDate = $request->filled('date') ? $request->date : now()->toDateString();
         $user = Auth::user();
-        $factoryOptions = ['Finish Goods', 'Finish Goods 1'];
+        $factoryOptions = ['Finish Goods 1', 'Finish Goods 2'];
         $userFactory = $user?->factory;
-
-        if ($userFactory && ! in_array($userFactory, $factoryOptions, true)) {
-            $factoryOptions[] = $userFactory;
-        }
 
         $selectedFactory = $request->filled('factory') && in_array($request->factory, $factoryOptions, true)
             ? $request->factory
@@ -234,6 +261,7 @@ class FinishGoodsTransactionController extends Controller
             $baseQuery->whereRaw('1 = 0');
         }
 
+        // Statistik pergerakan HARI INI (tetap berbasis tanggal yang dipilih)
         $dateQuery = (clone $baseQuery)->whereDate('created_at', $selectedDate);
 
         $totalKarton = (clone $dateQuery)->sum('qty_carton');
@@ -251,13 +279,30 @@ class FinishGoodsTransactionController extends Controller
             ? round((($incomingToday - $incomingYesterday) / $incomingYesterday) * 100, 1)
             : 0;
 
+        // ==========================================================
+        // LAYOUT RACK — harus berdasarkan stok KUMULATIF (IN - OUT)
+        // sampai tanggal yang dipilih, bukan hanya transaksi hari itu.
+        // Supaya rack yang terisi dari transaksi kemarin/lalu tetap
+        // terbaca "Filled" walau hari ini tidak ada pergerakan.
+        // ==========================================================
         $rackStatus = [];
         $filledRacks = 0;
 
         foreach ($factoryRacks as $rack) {
-            $rackTransactions = (clone $dateQuery)->where('rack_code', $rack->rack_code)->get();
-            $latestTransaction = $rackTransactions->sortByDesc('created_at')->first();
-            $cartons = (int) $rackTransactions->sum('qty_carton');
+
+            $cumulativeQuery = (clone $baseQuery)
+                ->where('rack_code', $rack->rack_code)
+                ->whereDate('created_at', '<=', $selectedDate);
+
+            $totalIn = (clone $cumulativeQuery)->where('action_type', 'in')->sum('qty_carton');
+            $totalOut = (clone $cumulativeQuery)->where('action_type', 'out')->sum('qty_carton');
+            $cartons = max(0, (int) $totalIn - (int) $totalOut);
+
+            // Transaksi terakhir (apapun jenisnya) sampai tanggal yang dipilih,
+            // dipakai untuk menampilkan PO yang lagi menempati rack ini.
+            $latestTransaction = (clone $cumulativeQuery)
+                ->orderByDesc('created_at')
+                ->first();
 
             if ($cartons > 0) {
                 $filledRacks++;
@@ -269,7 +314,7 @@ class FinishGoodsTransactionController extends Controller
                 'capacity' => 10,
                 'filled' => $cartons > 0 ? 100 : 0,
                 'status' => $cartons > 0 ? 'filled' : 'available',
-                'po' => $latestTransaction?->po ?? '-',
+                'po' => $cartons > 0 ? ($latestTransaction?->po ?? '-') : '-',
                 'action_type' => $latestTransaction?->action_type ?? null,
             ];
         }
@@ -322,3 +367,4 @@ class FinishGoodsTransactionController extends Controller
         ));
     }
 }
+
