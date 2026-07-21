@@ -22,7 +22,7 @@ class ProductTypeController extends Controller
      */
     public function index()
     {
-        $products = ProductType::latest()->get();
+        $products = ProductType::orderBy('created_at', 'desc')->get();
 
         return view(
             'pages.user.master-data.product-type',
