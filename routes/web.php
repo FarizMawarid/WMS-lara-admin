@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/finish-goods-move', function () {
         return view('pages.user.transaction.finishgoods.transactionMove');
     });
+    Route::get('/admin/finish-goods-move', [FinishGoodsTransactionController::class, 'indexMove']);
+    Route::post('/admin/finish-goods-move', [FinishGoodsTransactionController::class, 'storeMove']);
 
     // Report
     Route::get('/admin/finish-goods-reportIn', [FinishGoodsTransactionController::class, 'reportIn']);

@@ -366,5 +366,92 @@ class FinishGoodsTransactionController extends Controller
             'factoryOptions'
         ));
     }
+
+    public function indexMove()
+    {
+        $racks = Rack::orderBy('rack_code')->get();
+
+        // Kumpulkan sisa stok per PO + Rack (IN - OUT), dikelompokkan per PO.
+        // Cuma PO yang masih punya sisa stok yang boleh muncul di dropdown.
+        $poRackStock = FinishGoodsTransaction::select('po', 'style', 'rack_code')
+            ->selectRaw('SUM(CASE WHEN action_type = "in" THEN qty_carton ELSE -qty_carton END) as remaining_carton')
+            ->selectRaw('SUM(CASE WHEN action_type = "in" THEN qty_garment ELSE -qty_garment END) as remaining_garment')
+            ->groupBy('po', 'style', 'rack_code')
+            ->havingRaw('SUM(CASE WHEN action_type = "in" THEN qty_carton ELSE -qty_carton END) > 0')
+            ->get()
+            ->groupBy('po');
+
+        $poOptions = $poRackStock->keys()->sort()->values();
+
+        return view('pages.user.transaction.finishgoods.transactionMove', compact(
+            'racks',
+            'poRackStock',
+            'poOptions'
+        ));
+    }
+
+    public function storeMove(Request $request)
+    {
+        $validated = $request->validate([
+            'po' => 'required|string',
+            'style' => 'required|string',
+            'from_rack_code' => 'required|string',
+            'to_rack_code' => 'required|string|different:from_rack_code',
+            'qty_carton' => 'required|integer|min:1',
+            'qty_garment' => 'required|integer|min:1',
+        ], [
+            'to_rack_code.different' => 'Rack tujuan tidak boleh sama dengan rack asal.',
+        ]);
+
+        // Hitung ulang sisa stok riil di rack asal (server-side, anti manipulasi)
+        $remaining = FinishGoodsTransaction::where('po', $validated['po'])
+            ->where('rack_code', $validated['from_rack_code'])
+            ->selectRaw('
+                SUM(CASE WHEN action_type = "in" THEN qty_carton ELSE -qty_carton END) as remaining_carton,
+                SUM(CASE WHEN action_type = "in" THEN qty_garment ELSE -qty_garment END) as remaining_garment
+            ')
+            ->first();
+
+        $remainingCarton = (int) ($remaining->remaining_carton ?? 0);
+        $remainingGarment = (int) ($remaining->remaining_garment ?? 0);
+
+        if ($validated['qty_carton'] > $remainingCarton || $validated['qty_garment'] > $remainingGarment) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', "Jumlah melebihi sisa stok di rack {$validated['from_rack_code']}. Sisa stok: {$remainingCarton} carton / {$remainingGarment} garment.");
+        }
+
+        // Ambil "destination" (kota tujuan pengiriman) dari histori transaksi PO ini,
+        // supaya konsisten dengan data aslinya, bukan diinput ulang.
+        $destination = FinishGoodsTransaction::where('po', $validated['po'])
+            ->where('rack_code', $validated['from_rack_code'])
+            ->value('destination') ?? '-';
+
+        DB::transaction(function () use ($validated, $destination) {
+            // Kurangi stok di rack asal
+            FinishGoodsTransaction::create([
+                'po' => $validated['po'],
+                'style' => $validated['style'],
+                'destination' => $destination,
+                'qty_carton' => $validated['qty_carton'],
+                'qty_garment' => $validated['qty_garment'],
+                'rack_code' => $validated['from_rack_code'],
+                'action_type' => 'out',
+            ]);
+
+            // Tambah stok di rack tujuan
+            FinishGoodsTransaction::create([
+                'po' => $validated['po'],
+                'style' => $validated['style'],
+                'destination' => $destination,
+                'qty_carton' => $validated['qty_carton'],
+                'qty_garment' => $validated['qty_garment'],
+                'rack_code' => $validated['to_rack_code'],
+                'action_type' => 'in',
+            ]);
+        });
+
+        return redirect()->back()->with('success', "Berhasil memindahkan {$validated['qty_carton']} carton dari {$validated['from_rack_code']} ke {$validated['to_rack_code']}.");
+    }
 }
 
