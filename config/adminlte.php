@@ -350,6 +350,12 @@ return [
                     'icon_color' => 'warning',
                     'shift' => 'ml-2',
                 ],
+                [
+                    'text' => 'Move Carton',
+                    'url' => 'admin/finish-goods-move',
+                    'icon_color' => 'warning',
+                    'shift' => 'ml-2',
+                ],
             ],
         ],
         [

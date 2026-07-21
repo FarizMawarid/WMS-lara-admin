@@ -41,6 +41,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/finish-goods-out', [FinishGoodsTransactionController::class, 'indexOut']);
     Route::post('/admin/finish-goods-out', [FinishGoodsTransactionController::class, 'storeOut']);
 
+    Route::get('/admin/finish-goods-move', function () {
+        return view('pages.user.transaction.finishgoods.transactionMove');
+    });
+
     // Report
     Route::get('/admin/finish-goods-reportIn', [FinishGoodsTransactionController::class, 'reportIn']);
     Route::get('/admin/finish-goods-reportOut', [FinishGoodsTransactionController::class, 'reportOut']);
