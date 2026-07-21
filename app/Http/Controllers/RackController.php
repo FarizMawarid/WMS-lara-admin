@@ -9,7 +9,7 @@ class RackController extends Controller
 {
     public function index()
     {
-        $racks = Rack::latest()->get();
+        $racks = Rack::orderBy('created_at', 'desc')->get();
         return view('pages.admin.rackManagement', compact('racks'));
     }
 
@@ -53,6 +53,6 @@ class RackController extends Controller
         ]);
 
         return redirect()->back()
-        ->with('succes', 'Rack berhasil diupdate');
+        ->with('success', 'Rack berhasil diupdate');
     }
 }

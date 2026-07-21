@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RackController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductTypeController;
@@ -22,9 +23,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
 
     // Home
-    Route::get('/admin/home', function () {
-        return view('home');
-    });
+    Route::get('/admin/home', [HomeController::class, 'index']);
 
     // Transaction
     Route::get('/admin/finish-goods-manual', [FinishGoodsTransactionController::class, 'indexIn']);
@@ -44,8 +43,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/finish-goods-move', function () {
         return view('pages.user.transaction.finishgoods.transactionMove');
     });
-    Route::get('/admin/finish-goods-move', [FinishGoodsTransactionController::class, 'indexMove']);
-    Route::post('/admin/finish-goods-move', [FinishGoodsTransactionController::class, 'storeMove']);
 
     // Report
     Route::get('/admin/finish-goods-reportIn', [FinishGoodsTransactionController::class, 'reportIn']);

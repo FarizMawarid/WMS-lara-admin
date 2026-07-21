@@ -213,7 +213,7 @@ $(document).ready(function () {
     // Modal adding rack ends here
 
     // Modal delete rack begins here
-    $('.btn-delete-rack').click(function (e) {
+    $(document).on('click', '.btn-delete-rack', function (e) {
         e.preventDefault();
 
         let form = $(this).closest('form');
@@ -231,13 +231,13 @@ $(document).ready(function () {
             if (result.isConfirmed) {
                 form.submit();
             }
-            });
+        });
 
     });
     // Modal delete rack ends here
 
     // Modal editing rack begins here
-    $('.btn-edit-rack').click(async function (e) {
+    $(document).on('click', '.btn-edit-rack', async function (e) {
         e.preventDefault();
 
         let id = $(this).data('id');
