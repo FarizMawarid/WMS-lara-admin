@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ProductType;
 use App\Services\ProductTypeImportService;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ProductTypeController extends Controller
 {
@@ -20,7 +22,7 @@ class ProductTypeController extends Controller
      */
     public function index()
     {
-        $products = ProductType::latest()->get();
+        $products = ProductType::orderBy('created_at', 'desc')->get();
 
         return view(
             'pages.user.master-data.product-type',
@@ -133,15 +135,19 @@ class ProductTypeController extends Controller
             'Destination',
         ];
 
-        $callback = function () use ($headers) {
-            $handle = fopen('php://output', 'w');
-            fputcsv($handle, $headers);
-            fclose($handle);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray($headers, null, 'A1');
+
+        $writer = new Xlsx($spreadsheet);
+
+        $callback = function () use ($writer) {
+            $writer->save('php://output');
         };
 
         return response()->stream($callback, 200, [
-            'Content-Type' => 'text/csv; charset=UTF-8',
-            'Content-Disposition' => 'attachment; filename="product_type_template.csv"',
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Disposition' => 'attachment; filename="product_type_template.xlsx"',
         ]);
     }
 }

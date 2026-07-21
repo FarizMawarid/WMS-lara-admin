@@ -143,9 +143,9 @@
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="file">Choose File (CSV / XLSX / XLS)</label>
-                        <input type="file" class="form-control-file" id="file" name="file" accept=".csv,.xlsx,.xls" required>
-                        <small class="form-text text-muted">Format: CSV, XLSX, atau XLS</small>
+                        <label for="file">Choose File (XLSX / XLS)</label>
+                        <input type="file" class="form-control-file" id="file" name="file" accept=".xlsx,.xls" required>
+                        <small class="form-text text-muted">Format: XLSX atau XLS</small>
                     </div>
                 </div>
                 <div class="modal-footer">
