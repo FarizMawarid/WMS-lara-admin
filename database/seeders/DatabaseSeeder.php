@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
             [
                 'factory'   => 'ESGI Klego',
                 'role'      => 'Admin',
-                'nik'       => '142600600',
+                'nik'       => '123456789',
                 'department'=> 'Finish Goods 1',
                 'name'      => 'Super Administrator',
-                'email'     => 'arum600@gmail.com',
-                'password'  => Hash::make('Arumie601')
+                'email'     => 'admin@gmail.com',
+                'password'  => Hash::make('Password123')
             ]
         );
     }
